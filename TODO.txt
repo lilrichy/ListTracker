@@ -1,0 +1,8 @@
+Remove Unneeded Code and Clean up
+Test for slash commands bugs or errors
+Research Objective Tracker and remove if Unneeded
+    Remove Objective Links
+Remove Days and clean up from removal
+Add Option for Daily or Weekly Reset per Item
+Add Option for Font Size on List
+Check Icon Visibility option - Missing Function 

@@ -1,0 +1,7 @@
+7/31/2020 - 0.0.1
+    Forked and Ported over to Current Version of WoW 8.3.0
+    Updated Ace 3 Libs
+    Fixed Prefix Error
+    Changed slash commands so they all reflect the same namespace /lt or /listTracker
+    Edited text to be more user friendly
+    Removed Days and Weekly / Manual options to prevent bugs and make the UI easier to use and less confusing
