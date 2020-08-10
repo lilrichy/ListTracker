@@ -1,5 +1,5 @@
 Remove Unneeded Code and Clean up
-Test for slash commands bugs or errors
+        Test for slash commands bugs or errors - seems ok
 Research Objective Tracker and remove if Unneeded
     Remove Objective Links
 Remove Days and clean up from removal
