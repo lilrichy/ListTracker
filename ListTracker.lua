@@ -1637,7 +1637,7 @@ function ListTracker:CreateChecklistEntry()
 
     local listId = self.selectedManagerFrameList
 
-    -- Grab text from editbox
+    -- Grab text from edit box
     local newEntry = strtrim(self.checklistManagerTextField:GetText())
 
     -- Discard if text was empty
@@ -1825,7 +1825,7 @@ function ListTracker:ToggleSingleChecklistFrameCheckbox(currentBox)
     self:UpdateEntryPositionsOnChecklistFrame()
 end
 
--- Update entries in entries scroll frame when scrollbar moves
+-- Update entries in entries scroll frame when scroll bar moves
 function ListTracker:UpdateEntriesForScrollFrame()
 
     -- Remove highlight from selected entry, if any
