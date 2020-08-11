@@ -2,7 +2,7 @@
 ## Title: ListTracker
 ## Author: Downwind / LiLRichy
 ## Version: 0.0.1
-## Notes: Addon to track daily cooldowns from professions and other things like to-do lists, mount/xmog runs, or anything you want to track. Made by Downwind, GM of Strength in All on US-Stormrage.
+## Notes: Addon to track daily cooldowns from professions and other things like to-do lists, mount/xmog runs, or anything you want to track. 
 ## SavedVariables: ListTrackerDB
 ## DefaultState: enabled
 

@@ -1,3 +1,8 @@
+8/11/2020 - 1.0.0 Release
+    Spelling fixes
+    
+
+
 7/31/2020 - 0.0.1
     Forked and Ported over to Current Version of WoW 8.3.0
     Updated Ace 3 Libs

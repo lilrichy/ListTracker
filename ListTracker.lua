@@ -11,7 +11,7 @@ ListTracker.data = {}
 -- Create addon message prefix
 local PREFIX = "[ListTracker]"
 
--- Use variables for numberic weekdays, matches return from date(%w) + 1
+-- Use variables for numeric weekdays, matches return from date(%w) + 1
 local SUNDAY = 1
 local MONDAY = 2
 local TUESDAY = 3
@@ -193,7 +193,7 @@ function ListTracker:OnEnable()
     ObjectiveTrackerFrame.Show = self.ObjectiveTrackerFrameShow
 
     -- Notify user that ListTracker is enabled, give config command
-    self:Print("Daily Checklist enabled.  Use '/lt' to open the manager.")
+    self:Print("List Tracker enabled.  Use '/lt' to open the manager.")
 
     self:CheckCurrentDateAndTime(true)
 
@@ -1126,11 +1126,12 @@ function ListTracker:CreateManagerFrame()
     end)
 
     --TODO
-    -- Day based reminders seem over complicated and useless - leaving in if there is demand but disableing options to clear up confusion
-    -- Also seems like there may be bugs/ui issues with weekly / manual check box - dont have any way to tell what options have it selected or to edit once option is created.
+    -- Day based reminders seem over complicated and useless - leaving in if there is demand but disabling options to clear up confusion
+    -- Also seems like there may be bugs/ui issues with weekly / manual check box - don't have any way to tell what options have it selected or to edit once option is created.
     
     --TODO
-    -- Posibly use the daily section to add in Font size option for list.
+    -- Possibly use the daily section to add in Font size option for list. 
+    -- Scaling option might work better.
 
    --[[  local checklistManagerWeeklyLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
                                             "GameFontNormalSmall")
