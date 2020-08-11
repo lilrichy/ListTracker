@@ -82,6 +82,7 @@ ListTracker.defaults = {
         dailyResetTime = 1,
         weeklyResetDay = 3,
         resetPollInterval = 5,
+        setScale = 1,
         lists = {
             [1] = {
                 name = "Default",
@@ -89,6 +90,7 @@ ListTracker.defaults = {
                 entries = {}
             }
         }
+        
     }
 }
 
@@ -323,7 +325,8 @@ function ListTracker:CreateChecklistFrame()
         ListTracker.db.profile.framePosition.anchor, _, _, ListTracker.db.profile.framePosition.x, ListTracker.db
             .profile.framePosition.y = frame:GetPoint()
     end)
-    self.checklistFrame:SetBackdropColor(0, 0, 0, 1);
+    self.checklistFrame:SetBackdropColor(0, 0, 0, 1)    
+    self.checklistFrame:SetScale(self.db.profile.setScale)
     self.checklistFrame:SetHeight(200)
     self.checklistFrame:SetWidth(200)
     self.checklistFrame:SetAlpha(1.0)
@@ -971,8 +974,21 @@ function ListTracker:CreateManagerFrame()
                                     ListTracker:UpdateVisibilityOnChecklistFrame(value)
                                     ListTracker:UpdateEntryPositionsOnChecklistFrame()
                                 end
+                            },
+                            setScale = {
+                                type = "range",
+                                name = "Set List Scale",
+                                min = .5,
+                                max = 2.5,
+                                bigStep = .1,
+                                order = 50,
+                                get = getOpt,
+                                set = function(info, value)
+                                    ListTracker.db.profile.setScale = value
+                                    ListTracker:UpdateScale(value)
+                                end
                             }
-                            -- Disabling Because I dont think it is used TODO remove
+                            -- Disabling Because I don't think it is used TODO remove
                             --[[,
                              hideObjectives = {
                                 type = "toggle",
@@ -1582,7 +1598,7 @@ end
 -- Create new list if it does not exist and update checklist frame
 function ListTracker:CreateChecklistList()
 
-    -- Grab text from editbox
+    -- Grab text from edit box
     local newList = strtrim(self.checklistManagerListTextField:GetText())
 
     -- Discard if text was empty
@@ -1623,7 +1639,7 @@ function ListTracker:CreateChecklistList()
         self:UpdateEntryPositionsOnChecklistFrame()
     end
 
-    -- Reset text for editbox
+    -- Reset text for edit box
     self.checklistManagerListTextField:SetText("")
 
 end
@@ -1684,7 +1700,7 @@ function ListTracker:CreateChecklistEntry()
     -- Update visibility change
     self:UpdateVisibilityForListOnChecklistFrame(listId, self.db.profile.hideCompleted)
 
-    -- Reset text for editbox
+    -- Reset text for edit box
     self.checklistManagerTextField:SetText("")
 
     -- Reset checkboxes
@@ -2028,4 +2044,8 @@ function ListTracker:UpdateVisibilityOnChecklistFrame(hidden)
     for listId, _ in pairs(self.db.profile.lists) do
         self:UpdateVisibilityForListOnChecklistFrame(listId, hidden)
     end
+end
+
+function ListTracker:UpdateScale(value)
+    self.checklistFrame:SetScale(value)
 end
