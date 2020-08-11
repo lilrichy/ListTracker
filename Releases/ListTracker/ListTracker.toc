@@ -1,0 +1,10 @@
+## Interface: 80300
+## Title: ListTracker
+## Author: Downwind / LiLRichy
+## Version: 1.0.0
+## Notes: Addon to track daily cool downs from professions and other things like to-do lists, mount/xmog runs, or anything you want to track. 
+## SavedVariables: ListTrackerDB
+## DefaultState: enabled
+
+embeds.xml
+ListTracker.lua
