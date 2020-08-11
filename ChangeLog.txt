@@ -1,7 +1,8 @@
 8/11/2020 - 1.0.0 Release
-    Spelling fixes
-    
-
+    Added scaling to the list to change the size of the list and the font. 
+    Added slider in options window to change Scale size.
+    Spelling fixes.
+    Updated version to 1.0.0 for release onto curse.
 
 7/31/2020 - 0.0.1
     Forked and Ported over to Current Version of WoW 8.3.0
