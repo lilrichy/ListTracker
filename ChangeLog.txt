@@ -1,3 +1,9 @@
+ - 1.0.1
+ Add Weekly and Manual Options to individual list items. I changed how this was shown in options window to make it easy to change and view what items are set to different resets.
+ Moved Option items around to look better.
+ Removed some unneeded things.
+ Changed manager option colors to be uniform with other windows.
+
 8/11/2020 - 1.0.0 Release
     Added scaling to the list to change the size of the list and the font. 
     Added slider in options window to change Scale size.
