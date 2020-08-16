@@ -194,7 +194,7 @@ function ListTracker:OnEnable()
     ObjectiveTrackerFrame.Show = self.ObjectiveTrackerFrameShow
 
     -- Notify user that ListTracker is enabled, give config command
-    self:Print("List Tracker enabled.  Use '/lt' to open the manager.")
+    self:Print("List Tracker v", ltVersion .. "", " enabled.")
 
     self:CheckCurrentDateAndTime(true)
 
@@ -330,19 +330,6 @@ function ListTracker:CreateChecklistFrame()
     self.checklistFrame:SetWidth(200)
     self.checklistFrame:SetAlpha(1.0)
 
-    if self.db.profile.framePosition.hidden then
-        if self.db.profile.hideObjectives then
-            print("1,1")
-        else
-            print("1,0")
-        end
-    else
-        if self.db.profile.hideObjectives then
-            print("0,1")
-        else
-            print("0,0")
-        end
-    end
     ListTracker:UpdateVisibilityForChecklistFrame()
 
     -- Create empty array to store quest list buttons
@@ -1256,8 +1243,8 @@ function ListTracker:CreateManagerFrame()
     checklistManagerShownLabel:SetHeight(18)
     checklistManagerShownLabel:SetText("Shown")
 
-    local checklistManagerMoveLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
-                                             "GameTooltipTextSmall")
+    local checklistManagerMoveLabel =
+        self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "GameTooltipTextSmall")
     checklistManagerMoveLabel:SetPoint("TOPLEFT", 180, -235)
     checklistManagerMoveLabel:SetPoint("TOPRIGHT", 0, -235)
     checklistManagerMoveLabel:SetJustifyH("LEFT")
@@ -1265,7 +1252,7 @@ function ListTracker:CreateManagerFrame()
     checklistManagerMoveLabel:SetText("Move")
 
     local checklistManagerDeleteLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
-                                             "GameTooltipTextSmall")
+                                            "GameTooltipTextSmall")
     checklistManagerDeleteLabel:SetPoint("TOPLEFT", 230, -235)
     checklistManagerDeleteLabel:SetPoint("TOPRIGHT", 0, -235)
     checklistManagerDeleteLabel:SetJustifyH("LEFT")
@@ -1485,7 +1472,6 @@ function ListTracker:DeleteSelectedEntry(currentBox)
 
 end
 
--- TODO Add moving icons like Delete Icon
 -- Moves the selected entry up in the options frame and database
 function ListTracker:MoveSelectedEntryUp(currentBox)
 

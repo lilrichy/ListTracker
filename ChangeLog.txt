@@ -1,11 +1,12 @@
- - 1.0.1
- Add Weekly and Manual Options to individual list items. I changed how this was shown in options window to make it easy to change and view what items are set to different resets.
- Moved Option items around to look better.
- Removed some unneeded things.
- Changed manager option colors to be uniform with other windows.
- Adjusted checkboxes and Create button.
- Added Delete Icon next to list items.
- Fixed Checkboxes selection limits.
+ 8/16/2020 - 1.0.1
+    Add Weekly and Manual Options to individual list items and to new entry creation. I changed how this was shown to make it easy to change and view what items are set to different resets.
+    Moved Option items around to look better.
+    Removed some unneeded things.
+    Changed manager option colors to be uniform with the other option windows.
+    Adjusted checkboxes and Create button.
+    Added Delete Icon next to list items.
+    Added Move Icons next to list items.
+    Fixed Checkboxes selection limits. Should only be able to check weekly or Manual now instead of both.
 
 8/11/2020 - 1.0.0 Release
     Added scaling to the list to change the size of the list and the font. 
