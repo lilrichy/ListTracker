@@ -90,7 +90,6 @@ ListTracker.defaults = {
                 entries = {}
             }
         }
-
     }
 }
 
@@ -120,7 +119,6 @@ function ListTracker:UpdateVisibility()
     self:UpdateVisibilityForIcon(self.db.profile.icon.hide)
 end
 
--- TODO Bugs in Chat commands 
 function ListTracker:HandleChatMessageCommands(msg)
     local command, text = msg:match("(%S+)%s*(%S*)")
     if command == "show" then
@@ -346,7 +344,6 @@ function ListTracker:CreateChecklistFrame()
     self.checklistFrame:SetHeight(32)
     self.checklistFrame:SetPoint(self.db.profile.framePosition.anchor, nil, self.db.profile.framePosition.anchor,
         self.db.profile.framePosition.x, self.db.profile.framePosition.y - 16)
-
 end
 
 function ListTracker:RemoveChecklistFrameElements()
@@ -514,7 +511,6 @@ function ListTracker:CreateEntryInChecklistFrame(listId, entryId, offset)
     self.checklistFrame.lists[listId].entries[entryId].headerText:SetPoint("TOPLEFT", self.checklistFrame, "TOPLEFT",
         horizontalOffset + 16, -offset)
     self.checklistFrame.lists[listId].entries[entryId].headerText:Show()
-
 end
 
 -- Creates the UI elements of a list on the Checklist Frame
@@ -626,12 +622,12 @@ function ListTracker:UpdateEntryOnChecklistFrame(listId, entryId, checked)
             self.checklistFrame.lists[listId].entries[entryId].checkbox:Hide()
             self.checklistFrame.lists[listId].entries[entryId].headerText:Hide()
         end
+
         -- [elseif self.db.profile.lists[listId].entries[entryId].days[self.currentDay] then
         if self.checklistFrame.lists[listId] and self.checklistFrame.lists[listId].entries[entryId] then
             self.checklistFrame.lists[listId].entries[entryId].checkbox:Hide()
             self.checklistFrame.lists[listId].entries[entryId].headerText:Hide()
         end
-        -- end
     end
 end
 
@@ -774,7 +770,6 @@ function ListTracker:RemoveEntryFromChecklistFrame(listId, entryId)
     end
 
     -- Hide interface elements for entry
-    -- DEBUG self:Print("Hiding and removing quest: "..entryId)
     self.checklistFrame.lists[listId].entries[entryId].checkbox:Hide()
     self.checklistFrame.lists[listId].entries[entryId].headerText:Hide()
 
@@ -793,7 +788,6 @@ function ListTracker:RemoveEntryFromChecklistFrame(listId, entryId)
         -- Remove list from table
         table.remove(self.checklistFrame.lists, listId)
     end
-    -- DEBUG self:Print("Frame table size: "..table.getn(self.checklistFrame.quests))
 end
 
 -- Create the options frame under the WoW interface->addons menu
@@ -974,15 +968,6 @@ function ListTracker:CreateManagerFrame()
                                     ListTracker:UpdateScale(value)
                                 end
                             }
-                            -- Disabling Because I don't think it is used TODO remove
-                            --[[,
-                             hideObjectives = {
-                                type = "toggle",
-                                name = "Hide Objectives Frame",
-                                order = 50,
-                                get = getOpt,
-                                set = setOpt
-                            } ]]
                         }
                     },
                     minimap = {
@@ -1599,7 +1584,6 @@ function ListTracker:CreateChecklistList()
 
     -- Reset text for edit box
     self.checklistManagerListTextField:SetText("")
-
 end
 
 -- Create new entry if it does not exist and update checklist frame
@@ -1662,14 +1646,6 @@ function ListTracker:CreateChecklistEntry()
     self.checklistManagerTextField:SetText("")
 
     -- Reset checkboxes
-    -- Disabling for TODO in options
-    --[[ self.checklistManagerSundayCheckbox:SetChecked(false)
-    self.checklistManagerMondayCheckbox:SetChecked(false)
-    self.checklistManagerTuesdayCheckbox:SetChecked(false)
-    self.checklistManagerWednesdayCheckbox:SetChecked(false)
-    self.checklistManagerThursdayCheckbox:SetChecked(false)
-    self.checklistManagerFridayCheckbox:SetChecked(false)
-    self.checklistManagerSaturdayCheckbox:SetChecked(false)]]
     self.checklistManagerWeeklyCheckbox:SetChecked(false)
     self.checklistManagerManualCheckbox:SetChecked(false)
 end
@@ -1678,14 +1654,6 @@ end
 function ListTracker:CreateDatabaseEntry(text)
     local noneChecked = true -- false Disabled for Options TODO
 
-    -- Disabled for Options TODO
-    --[[  if not self.checklistManagerSundayCheckbox:GetChecked() and not self.checklistManagerMondayCheckbox:GetChecked() and
-        not self.checklistManagerTuesdayCheckbox:GetChecked() and
-        not self.checklistManagerWednesdayCheckbox:GetChecked() and
-        not self.checklistManagerThursdayCheckbox:GetChecked() and not self.checklistManagerFridayCheckbox:GetChecked() and
-        not self.checklistManagerSaturdayCheckbox:GetChecked() then
-        noneChecked = true
-    end ]]
     local entry = {
         text = text,
         checked = true,
@@ -1720,7 +1688,6 @@ function ListTracker:ToggleChecklistManagerWeeklyCheckbox(currentBox)
     -- Update positions because of visibility change
     self:UpdateEntryPositionsOnChecklistFrame()
     self:UpdateEntriesForScrollFrame()
-
 end
 
 -- Change Manual database value
@@ -1730,7 +1697,6 @@ function ListTracker:ToggleChecklistManagerManualCheckbox(currentBox)
     -- Update positions because of visibility change
     self:UpdateEntryPositionsOnChecklistFrame()
     self:UpdateEntriesForScrollFrame()
-
 end
 
 -- Change database values, images, and checklist positions
@@ -1758,7 +1724,6 @@ function ListTracker:ToggleChecklistFrameListExpand(currentExpand)
             entry.headerText:Hide()
         end
     end
-
     self:UpdateEntryPositionsOnChecklistFrame()
 end
 
@@ -1776,7 +1741,6 @@ function ListTracker:ToggleChecklistFrameListCheckbox(currentBox)
     if self.db.profile.hideCompleted then
         self:UpdateVisibilityForListOnChecklistFrame(currentBox.listId, self.db.profile.hideCompleted)
     end
-
     self:UpdateEntryPositionsOnChecklistFrame()
 end
 
@@ -1813,7 +1777,6 @@ function ListTracker:ToggleSingleChecklistFrameCheckbox(currentBox)
             self.checklistFrame.lists[currentBox.listId].headerText:Show()
         end
     end
-
     self:UpdateEntryPositionsOnChecklistFrame()
 end
 
@@ -1917,7 +1880,6 @@ function ListTracker:RefreshEverything()
     -- Move checklist frame
     self.checklistFrame:SetPoint(self.db.profile.framePosition.anchor, nil, self.db.profile.framePosition.anchor,
         self.db.profile.framePosition.x, self.db.profile.framePosition.y - 16)
-
 end
 
 -- Called when minimap icon is clicked
