@@ -1474,8 +1474,6 @@ function ListTracker:DeleteSelectedEntry(currentBox)
         local listId = currentBox.listId
         local entryId = currentBox.entryId
 
-        self:Print("Deleted entry: " .. entryId)
-
         self:RemoveEntryFromChecklistFrame(listId, entryId)
 
         table.remove(self.db.profile.lists[listId].entries, entryId)
