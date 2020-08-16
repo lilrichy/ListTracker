@@ -1705,9 +1705,7 @@ end
 -- Change database value
 function ListTracker:ToggleChecklistManagerShownCheckbox(currentBox)
     self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].checked = currentBox:GetChecked()
-
     self:UpdateEntryOnChecklistFrame(currentBox.listId, currentBox.entryId, currentBox:GetChecked())
-
     -- Update positions because of visibility change
     self:UpdateEntryPositionsOnChecklistFrame()
 end
@@ -1715,11 +1713,21 @@ end
 -- Change Weekly database value
 function ListTracker:ToggleChecklistManagerWeeklyCheckbox(currentBox)
     self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].weekly = currentBox:GetChecked()
+    self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].manual = not currentBox:GetChecked()
+    -- Update positions because of visibility change
+    self:UpdateEntryPositionsOnChecklistFrame()
+    self:UpdateEntriesForScrollFrame()
+
 end
 
 -- Change Manual database value
 function ListTracker:ToggleChecklistManagerManualCheckbox(currentBox)
     self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].manual = currentBox:GetChecked()
+    self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].weekly = not currentBox:GetChecked()
+    -- Update positions because of visibility change
+    self:UpdateEntryPositionsOnChecklistFrame()
+    self:UpdateEntriesForScrollFrame()
+
 end
 
 -- Change database values, images, and checklist positions
