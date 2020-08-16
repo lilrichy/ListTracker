@@ -1,3 +1,6 @@
+ 8/16/2020 - 1.0.2
+    Fixed bug in weekly and manual checkboxes.
+    
  8/16/2020 - 1.0.1
     Add Weekly and Manual Options to individual list items and to new entry creation. I changed how this was shown to make it easy to change and view what items are set to different resets.
     Moved Option items around to look better.
