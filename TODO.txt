@@ -2,3 +2,5 @@ Remove Objective Links
 Check Icon Visibility option works on options window 
     - Missing Function
     - Add ask to reload dialog when check box changes or chat command used
+Weekly and Manual checkboxes should be able to be unchecked with out checking the other and 
+    only change the other if it was checked so that unchecked can be used for dailys. - BUG!!!
