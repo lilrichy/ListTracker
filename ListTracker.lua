@@ -1133,7 +1133,7 @@ function ListTracker:CreateManagerFrame()
 
     local checklistManagerWeeklyLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
                                             "GameTooltipTextSmall")
-    checklistManagerWeeklyLabel:SetPoint("TOPLEFT", 425, -95)
+    checklistManagerWeeklyLabel:SetPoint("TOPLEFT", 400, -95)
     checklistManagerWeeklyLabel:SetPoint("TOPRIGHT", 0, -95)
     checklistManagerWeeklyLabel:SetJustifyH("LEFT")
     checklistManagerWeeklyLabel:SetHeight(18)
@@ -1141,7 +1141,7 @@ function ListTracker:CreateManagerFrame()
 
     self.checklistManagerWeeklyCheckbox = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                               "UICheckButtonTemplate")
-    self.checklistManagerWeeklyCheckbox:SetPoint("TOPLEFT", 425, -110)
+    self.checklistManagerWeeklyCheckbox:SetPoint("TOPLEFT", 400, -110)
     self.checklistManagerWeeklyCheckbox:SetWidth(25)
     self.checklistManagerWeeklyCheckbox:SetHeight(25)
     self.checklistManagerWeeklyCheckbox:SetScript("OnClick", function(frame)
@@ -1149,13 +1149,13 @@ function ListTracker:CreateManagerFrame()
     end)
 
     local checklistManagerWeeklyText = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-    checklistManagerWeeklyText:SetPoint("TOPLEFT", 450, -115)
+    checklistManagerWeeklyText:SetPoint("TOPLEFT", 425, -115)
     checklistManagerWeeklyText:SetHeight(18)
     checklistManagerWeeklyText:SetText("Weekly")
 
     self.checklistManagerManualCheckbox = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                               "UICheckButtonTemplate")
-    self.checklistManagerManualCheckbox:SetPoint("TOPLEFT", 525, -110)
+    self.checklistManagerManualCheckbox:SetPoint("TOPLEFT", 500, -110)
     self.checklistManagerManualCheckbox:SetWidth(25)
     self.checklistManagerManualCheckbox:SetHeight(25)
     self.checklistManagerManualCheckbox:SetScript("OnClick", function(frame)
@@ -1163,14 +1163,14 @@ function ListTracker:CreateManagerFrame()
     end)
 
     local checklistManagerManualText = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-    checklistManagerManualText:SetPoint("TOPLEFT", 550, -115)
+    checklistManagerManualText:SetPoint("TOPLEFT", 525, -115)
     checklistManagerManualText:SetHeight(18)
     checklistManagerManualText:SetText("Manual")
 
     self.checklistManagerTextFieldButton = CreateFrame("Button", nil, self.checklistManagerFrame,
                                                "UIPanelButtonTemplate")
     self.checklistManagerTextFieldButton:SetSize(100, 24)
-    self.checklistManagerTextFieldButton:SetPoint("TOPLEFT", 500, -175)
+    self.checklistManagerTextFieldButton:SetPoint("TOPLEFT", 500, -135)
     self.checklistManagerTextFieldButton:SetText("Create")
     self.checklistManagerTextFieldButton:SetScript("OnClick", function(frame)
         ListTracker:CreateChecklistEntry()
@@ -1232,24 +1232,24 @@ function ListTracker:CreateManagerFrame()
     end)
 
     -- Labels for Checkboxes
-    local checklistManagerTitleLabel =
-        self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "GameTooltipTextSmall")
+    local checklistManagerTitleLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+                                           "GameTooltipTextSmall")
     checklistManagerTitleLabel:SetPoint("TOPLEFT", 40, -235)
     checklistManagerTitleLabel:SetPoint("TOPRIGHT", 0, -235)
     checklistManagerTitleLabel:SetJustifyH("LEFT")
     checklistManagerTitleLabel:SetHeight(18)
     checklistManagerTitleLabel:SetText("Weekly")
 
-    local checklistManagerTitleLabel =
-        self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "GameTooltipTextSmall")
+    local checklistManagerTitleLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+                                           "GameTooltipTextSmall")
     checklistManagerTitleLabel:SetPoint("TOPLEFT", 100, -235)
     checklistManagerTitleLabel:SetPoint("TOPRIGHT", 0, -235)
     checklistManagerTitleLabel:SetJustifyH("LEFT")
     checklistManagerTitleLabel:SetHeight(18)
     checklistManagerTitleLabel:SetText("Manual")
 
-    local checklistManagerTitleLabel =
-        self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "GameTooltipTextSmall")
+    local checklistManagerTitleLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+                                           "GameTooltipTextSmall")
     checklistManagerTitleLabel:SetPoint("TOPLEFT", 150, -235)
     checklistManagerTitleLabel:SetPoint("TOPRIGHT", 0, -235)
     checklistManagerTitleLabel:SetJustifyH("LEFT")
@@ -1358,13 +1358,6 @@ function ListTracker:CreateManagerFrame()
     checklistManagerDeleteLabel:SetHeight(18)
     checklistManagerDeleteLabel:SetText(
         "Select an entry from the list by clicking the white text and use the corresponding button to delete or move it")
-
-    -- Lock frame text ?? TODO check or remove possibly unused ??
-    self.checklistManagerLockText = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-    self.checklistManagerLockText:SetPoint("BOTTOMLEFT", 35, 12)
-    self.checklistManagerLockText:SetJustifyH("LEFT")
-    self.checklistManagerLockText:SetHeight(18)
-    self.checklistManagerLockText:SetText("Lock Frame")
 
     -- Create delete button
     self.checklistManagerFrameDelete = CreateFrame("Button", nil, self.checklistManagerFrame, "UIPanelButtonTemplate")

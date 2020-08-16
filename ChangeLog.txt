@@ -3,6 +3,7 @@
  Moved Option items around to look better.
  Removed some unneeded things.
  Changed manager option colors to be uniform with other windows.
+ Adjusted checkboxes and Create button
 
 8/11/2020 - 1.0.0 Release
     Added scaling to the list to change the size of the list and the font. 
