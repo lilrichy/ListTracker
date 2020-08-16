@@ -1137,7 +1137,7 @@ function ListTracker:CreateManagerFrame()
     checklistManagerWeeklyLabel:SetPoint("TOPRIGHT", 0, -95)
     checklistManagerWeeklyLabel:SetJustifyH("LEFT")
     checklistManagerWeeklyLabel:SetHeight(18)
-    checklistManagerWeeklyLabel:SetText("Reset interval, defaults to daily")
+    checklistManagerWeeklyLabel:SetText("Reset, leave blank for daily")
 
     self.checklistManagerWeeklyCheckbox = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                               "UICheckButtonTemplate")
@@ -1254,7 +1254,31 @@ function ListTracker:CreateManagerFrame()
     checklistManagerShownLabel:SetPoint("TOPRIGHT", 0, -235)
     checklistManagerShownLabel:SetJustifyH("LEFT")
     checklistManagerShownLabel:SetHeight(18)
-    checklistManagerShownLabel:SetText("Shown Items")
+    checklistManagerShownLabel:SetText("Shown")
+
+    local checklistManagerMoveLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+                                             "GameTooltipTextSmall")
+    checklistManagerMoveLabel:SetPoint("TOPLEFT", 180, -235)
+    checklistManagerMoveLabel:SetPoint("TOPRIGHT", 0, -235)
+    checklistManagerMoveLabel:SetJustifyH("LEFT")
+    checklistManagerMoveLabel:SetHeight(18)
+    checklistManagerMoveLabel:SetText("Move")
+
+    local checklistManagerDeleteLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+                                             "GameTooltipTextSmall")
+    checklistManagerDeleteLabel:SetPoint("TOPLEFT", 230, -235)
+    checklistManagerDeleteLabel:SetPoint("TOPRIGHT", 0, -235)
+    checklistManagerDeleteLabel:SetJustifyH("LEFT")
+    checklistManagerDeleteLabel:SetHeight(18)
+    checklistManagerDeleteLabel:SetText("Delete")
+
+    local checklistManagerItemsLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+                                           "GameTooltipTextSmall")
+    checklistManagerItemsLabel:SetPoint("TOPLEFT", 275, -235)
+    checklistManagerItemsLabel:SetPoint("TOPRIGHT", 0, -235)
+    checklistManagerItemsLabel:SetJustifyH("LEFT")
+    checklistManagerItemsLabel:SetHeight(18)
+    checklistManagerItemsLabel:SetText("Items")
 
     -- Create scrollable frame
     self.checklistManagerFrameScroll = CreateFrame("ScrollFrame", "checklistManagerFrameScroll",
@@ -1325,7 +1349,7 @@ function ListTracker:CreateManagerFrame()
 
         -- Clickable Frame
         self.checklistManagerFrameClickable[i] = CreateFrame("Frame", "ClickableFrame" .. i, self.checklistManagerFrame)
-        self.checklistManagerFrameClickable[i]:SetPoint("TOPLEFT", 250, -offset)
+        self.checklistManagerFrameClickable[i]:SetPoint("TOPLEFT", 275, -offset)
         self.checklistManagerFrameClickable[i]:SetWidth(300)
         self.checklistManagerFrameClickable[i]:SetHeight(25)
         self.checklistManagerFrameClickable[i]:SetScript("OnEnter", function(self)
@@ -1347,15 +1371,47 @@ function ListTracker:CreateManagerFrame()
 
         self.checklistManagerFrameText[i] =
             self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-        self.checklistManagerFrameText[i]:SetPoint("TOPLEFT", 250, -offset - 5)
+        self.checklistManagerFrameText[i]:SetPoint("TOPLEFT", 275, -offset - 5)
         self.checklistManagerFrameText[i]:SetText("")
         self.checklistManagerFrameText[i]:Hide()
+
+        -- Icon for Move Up Button
+        self.checklistManagerFrameMoveUpIcon[i] = CreateFrame("BUTTON", nil, self.checklistManagerFrame,
+                                                      "SecureHandlerClickTemplate");
+        self.checklistManagerFrameMoveUpIcon[i]:SetSize(25, 25)
+        self.checklistManagerFrameMoveUpIcon[i]:SetPoint("TOPLEFT", 175, -offset)
+        self.checklistManagerFrameMoveUpIcon[i]:RegisterForClicks("AnyUp")
+        self.checklistManagerFrameMoveUpIcon[i]:SetNormalTexture("Interface\\MINIMAP\\UI-Minimap-MinimizeButtonUp-Up")
+        self.checklistManagerFrameMoveUpIcon[i]:SetHighlightTexture(
+            "Interface\\MINIMAP\\UI-Minimap-MinimizeButtonUp-Highlight")
+        self.checklistManagerFrameMoveUpIcon[i]:SetPushedTexture("Interface\\MINIMAP\\UI-Minimap-MinimizeButtonUp-Down")
+        self.checklistManagerFrameMoveUpIcon[i]:SetScript("OnClick", function(self)
+            ListTracker:MoveSelectedEntryUp(self)
+        end)
+        self.checklistManagerFrameMoveUpIcon[i]:Hide()
+
+        -- Icon for Move Down Button
+        self.checklistManagerFrameMoveDownIcon[i] = CreateFrame("BUTTON", nil, self.checklistManagerFrame,
+                                                        "SecureHandlerClickTemplate");
+        self.checklistManagerFrameMoveDownIcon[i]:SetSize(25, 25)
+        self.checklistManagerFrameMoveDownIcon[i]:SetPoint("TOPLEFT", 195, -offset)
+        self.checklistManagerFrameMoveDownIcon[i]:RegisterForClicks("AnyUp")
+        self.checklistManagerFrameMoveDownIcon[i]:SetNormalTexture(
+            "Interface\\MINIMAP\\UI-Minimap-MinimizeButtonDown-Up")
+        self.checklistManagerFrameMoveDownIcon[i]:SetHighlightTexture(
+            "Interface\\MINIMAP\\UI-Minimap-MinimizeButtonDown-Highlight")
+        self.checklistManagerFrameMoveDownIcon[i]:SetPushedTexture(
+            "Interface\\MINIMAP\\UI-Minimap-MinimizeButtonDown-Down")
+        self.checklistManagerFrameMoveDownIcon[i]:SetScript("OnClick", function(self)
+            ListTracker:MoveSelectedEntryDown(self)
+        end)
+        self.checklistManagerFrameMoveDownIcon[i]:Hide()
 
         -- Icon for Delete button
         self.checklistManagerFrameDeleteIcon[i] = CreateFrame("BUTTON", nil, self.checklistManagerFrame,
                                                       "SecureHandlerClickTemplate");
         self.checklistManagerFrameDeleteIcon[i]:SetSize(25, 25)
-        self.checklistManagerFrameDeleteIcon[i]:SetPoint("TOPLEFT", 165, -offset)
+        self.checklistManagerFrameDeleteIcon[i]:SetPoint("TOPLEFT", 230, -offset)
         self.checklistManagerFrameDeleteIcon[i]:RegisterForClicks("AnyUp")
         self.checklistManagerFrameDeleteIcon[i]:SetNormalTexture("Interface\\RaidFrame\\ReadyCheck-NotReady")
         self.checklistManagerFrameDeleteIcon[i]:SetHighlightTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_7")
@@ -1364,39 +1420,8 @@ function ListTracker:CreateManagerFrame()
         end)
         self.checklistManagerFrameDeleteIcon[i]:Hide()
 
-        -- TODO add icons for moving items to the scroll list
-        -- self.checklistManagerFrameMoveUpIcon 
-        -- self.checklistManagerFrameMoveDownIcon 
-
         offset = offset + 20
     end
-
-    local checklistManagerDeleteLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
-                                            "GameTooltipTextSmall")
-    checklistManagerDeleteLabel:SetPoint("BOTTOMLEFT", 40, 35)
-    checklistManagerDeleteLabel:SetPoint("BOTTOMRIGHT", 0, 35)
-    checklistManagerDeleteLabel:SetJustifyH("LEFT")
-    checklistManagerDeleteLabel:SetHeight(18)
-    checklistManagerDeleteLabel:SetText(
-        "Select an item from the list by clicking the text and use the corresponding buttons to or move it")
-
-    -- Create move up button
-    self.checklistManagerFrameUp = CreateFrame("Button", nil, self.checklistManagerFrame, "UIPanelButtonTemplate")
-    self.checklistManagerFrameUp:SetPoint("BOTTOMRIGHT", -70, 10)
-    self.checklistManagerFrameUp:SetSize(60, 24)
-    self.checklistManagerFrameUp:SetText("Up")
-    self.checklistManagerFrameUp:SetScript("OnClick", function(self)
-        ListTracker:MoveSelectedEntryUp()
-    end)
-
-    -- Create move down button
-    self.checklistManagerFrameDown = CreateFrame("Button", nil, self.checklistManagerFrame, "UIPanelButtonTemplate")
-    self.checklistManagerFrameDown:SetPoint("BOTTOMRIGHT", -10, 10)
-    self.checklistManagerFrameDown:SetSize(60, 24)
-    self.checklistManagerFrameDown:SetText("Down")
-    self.checklistManagerFrameDown:SetScript("OnClick", function(self)
-        ListTracker:MoveSelectedEntryDown()
-    end)
 end
 
 -- Removes the selected list from the manager frame and database
@@ -1464,79 +1489,73 @@ end
 
 -- TODO Add moving icons like Delete Icon
 -- Moves the selected entry up in the options frame and database
-function ListTracker:MoveSelectedEntryUp()
+function ListTracker:MoveSelectedEntryUp(currentBox)
 
-    -- If nothing is selected, do nothing
-    if not self.selectedManagerFrameList or not self.selectedManagerFrameText then
+    -- If icon clicked get info
+    if currentBox then
+        local listId = currentBox.listId
+        local entryId = currentBox.entryId
+
+        -- If the selected entry is already at the top of the list, do nothing
+        if entryId <= 1 then
+            return
+        end
+
+        -- Swap the selected entry and the one directly above
+        local prevQuest = self.db.profile.lists[listId].entries[entryId - 1]
+        self.db.profile.lists[listId].entries[entryId - 1] = self.db.profile.lists[listId].entries[entryId]
+        self.db.profile.lists[listId].entries[entryId] = prevQuest
+
+        if self.checklistFrame.lists[listId] then
+            prevQuest = self.checklistFrame.lists[listId].entries[entryId - 1]
+            self.checklistFrame.lists[listId].entries[entryId - 1] = self.checklistFrame.lists[listId].entries[entryId]
+            self.checklistFrame.lists[listId].entries[entryId] = prevQuest
+        end
+
+        self:UpdateEntriesForScrollFrame()
+        self:UpdateEntryPositionsOnChecklistFrame()
+
+        self.checklistManagerFrameText[entryId - 1]:SetText(self.selectedEntryColor ..
+                                                                self.checklistManagerFrameText[entryId - 1]:GetText())
+        self.selectedManagerFrameText = entryId - 1
         return
     end
-
-    local listId = self.selectedManagerFrameList
-    local entryId = self.checklistManagerFrameShownCheckboxes[self.selectedManagerFrameText].entryId
-    -- DEBUG self:Print("Moving up entry: "..entryId)
-    -- local tableSize = table.getn(self.db.profile.lists[listId].entries)
-    -- DEBUG self:Print("All Quests Table Size: "..tableSize)
-
-    -- If the selected entry is already at the top of the list, do nothing
-    if entryId <= 1 then
-        return
-    end
-
-    -- Swap the selected entry and the one directly above
-    local prevQuest = self.db.profile.lists[listId].entries[entryId - 1]
-    self.db.profile.lists[listId].entries[entryId - 1] = self.db.profile.lists[listId].entries[entryId]
-    self.db.profile.lists[listId].entries[entryId] = prevQuest
-
-    if self.checklistFrame.lists[listId] then
-        prevQuest = self.checklistFrame.lists[listId].entries[entryId - 1]
-        self.checklistFrame.lists[listId].entries[entryId - 1] = self.checklistFrame.lists[listId].entries[entryId]
-        self.checklistFrame.lists[listId].entries[entryId] = prevQuest
-    end
-
-    self:UpdateEntriesForScrollFrame()
-    self:UpdateEntryPositionsOnChecklistFrame()
-
-    self.checklistManagerFrameText[entryId - 1]:SetText(self.selectedEntryColor ..
-                                                            self.checklistManagerFrameText[entryId - 1]:GetText())
-    self.selectedManagerFrameText = entryId - 1
 end
 
 -- Moves the selected entry down in the options frame and database
-function ListTracker:MoveSelectedEntryDown()
+function ListTracker:MoveSelectedEntryDown(currentBox)
 
-    -- If nothing is selected, do nothing
-    if not self.selectedManagerFrameList or not self.selectedManagerFrameText then
+    -- If icon clicked get info
+    if currentBox then
+        local listId = currentBox.listId
+        local entryId = currentBox.entryId
+
+        local tableSize = table.getn(self.db.profile.lists[listId].entries)
+
+        -- If the selected entry is already at the bottom of the list, do nothing
+        if entryId >= tableSize then
+            return
+        end
+
+        -- Swap the selected entry and the one directly above
+        local nextQuest = self.db.profile.lists[listId].entries[entryId + 1]
+        self.db.profile.lists[listId].entries[entryId + 1] = self.db.profile.lists[listId].entries[entryId]
+        self.db.profile.lists[listId].entries[entryId] = nextQuest
+
+        if self.checklistFrame.lists[listId] then
+            nextQuest = self.checklistFrame.lists[listId].entries[entryId + 1]
+            self.checklistFrame.lists[listId].entries[entryId + 1] = self.checklistFrame.lists[listId].entries[entryId]
+            self.checklistFrame.lists[listId].entries[entryId] = nextQuest
+        end
+
+        self:UpdateEntriesForScrollFrame()
+        self:UpdateEntryPositionsOnChecklistFrame()
+
+        self.checklistManagerFrameText[entryId + 1]:SetText(self.selectedEntryColor ..
+                                                                self.checklistManagerFrameText[entryId + 1]:GetText())
+        self.selectedManagerFrameText = entryId + 1
         return
     end
-
-    local listId = self.selectedManagerFrameList
-    local entryId = self.checklistManagerFrameShownCheckboxes[self.selectedManagerFrameText].entryId
-    -- DEBUG self:Print("Moving down entry: "..entryId)
-    local tableSize = table.getn(self.db.profile.lists[listId].entries)
-    -- DEBUG self:Print("All Quests Table Size: "..tableSize)
-
-    -- If the selected entry is already at the bottom of the list, do nothing
-    if entryId >= tableSize then
-        return
-    end
-
-    -- Swap the selected entry and the one directly above
-    local nextQuest = self.db.profile.lists[listId].entries[entryId + 1]
-    self.db.profile.lists[listId].entries[entryId + 1] = self.db.profile.lists[listId].entries[entryId]
-    self.db.profile.lists[listId].entries[entryId] = nextQuest
-
-    if self.checklistFrame.lists[listId] then
-        nextQuest = self.checklistFrame.lists[listId].entries[entryId + 1]
-        self.checklistFrame.lists[listId].entries[entryId + 1] = self.checklistFrame.lists[listId].entries[entryId]
-        self.checklistFrame.lists[listId].entries[entryId] = nextQuest
-    end
-
-    self:UpdateEntriesForScrollFrame()
-    self:UpdateEntryPositionsOnChecklistFrame()
-
-    self.checklistManagerFrameText[entryId + 1]:SetText(self.selectedEntryColor ..
-                                                            self.checklistManagerFrameText[entryId + 1]:GetText())
-    self.selectedManagerFrameText = entryId + 1
 end
 
 -- Resets the color of the previously selected options text
@@ -1702,7 +1721,7 @@ function ListTracker:CreateDatabaseEntry(text)
     return entry
 end
 
--- Change database value
+-- Change Shown database value
 function ListTracker:ToggleChecklistManagerShownCheckbox(currentBox)
     self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].checked = currentBox:GetChecked()
     self:UpdateEntryOnChecklistFrame(currentBox.listId, currentBox.entryId, currentBox:GetChecked())
@@ -1861,6 +1880,16 @@ function ListTracker:UpdateEntriesForScrollFrame()
                     deleteIcon.listId = listId
                     deleteIcon:Show()
 
+                    local moveUpIcon = self.checklistManagerFrameMoveUpIcon[numberOfRows]
+                    moveUpIcon.entryId = entryId
+                    moveUpIcon.listId = listId
+                    moveUpIcon:Show()
+
+                    local moveDownIcon = self.checklistManagerFrameMoveDownIcon[numberOfRows]
+                    moveDownIcon.entryId = entryId
+                    moveDownIcon.listId = listId
+                    moveDownIcon:Show()
+
                     numberOfRows = numberOfRows + 1
                 end
             end
@@ -1873,6 +1902,8 @@ function ListTracker:UpdateEntriesForScrollFrame()
         self.checklistManagerFrameWeeklyCheckboxes[i]:Hide()
         self.checklistManagerFrameManualCheckboxes[i]:Hide()
         self.checklistManagerFrameDeleteIcon[i]:Hide()
+        self.checklistManagerFrameMoveUpIcon[i]:Hide()
+        self.checklistManagerFrameMoveDownIcon[i]:Hide()
     end
 
     -- Execute scroll bar update 
