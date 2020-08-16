@@ -1278,6 +1278,8 @@ function ListTracker:CreateManagerFrame()
     self.checklistManagerFrameWeeklyCheckboxes = {}
     self.checklistManagerFrameManualCheckboxes = {}
     self.checklistManagerFrameDeleteIcon = {}
+    self.checklistManagerFrameMoveUpIcon = {}
+    self.checklistManagerFrameMoveDownIcon = {}
 
     -- Set up vertical offset for checkbox list
     local offset = self.managerPanelHeight - 50
@@ -1356,12 +1358,15 @@ function ListTracker:CreateManagerFrame()
         self.checklistManagerFrameDeleteIcon[i]:SetPoint("TOPLEFT", 165, -offset)
         self.checklistManagerFrameDeleteIcon[i]:RegisterForClicks("AnyUp")
         self.checklistManagerFrameDeleteIcon[i]:SetNormalTexture("Interface\\RaidFrame\\ReadyCheck-NotReady")
-        -- self.checklistManagerFrameDeleteIcon[i]:SetPushedTexture("Interface\\Vehicles\\UI-Vehicles-Button-Exit-Down")
         self.checklistManagerFrameDeleteIcon[i]:SetHighlightTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_7")
         self.checklistManagerFrameDeleteIcon[i]:SetScript("OnClick", function(self)
             ListTracker:DeleteSelectedEntry(self)
         end)
         self.checklistManagerFrameDeleteIcon[i]:Hide()
+
+        -- TODO add icons for moving items to the scroll list
+        -- self.checklistManagerFrameMoveUpIcon 
+        -- self.checklistManagerFrameMoveDownIcon 
 
         offset = offset + 20
     end
@@ -1373,16 +1378,7 @@ function ListTracker:CreateManagerFrame()
     checklistManagerDeleteLabel:SetJustifyH("LEFT")
     checklistManagerDeleteLabel:SetHeight(18)
     checklistManagerDeleteLabel:SetText(
-        "Select an entry from the list by clicking the white text and use the corresponding button to delete or move it")
-
-    -- Create delete button
-    self.checklistManagerFrameDelete = CreateFrame("Button", nil, self.checklistManagerFrame, "UIPanelButtonTemplate")
-    self.checklistManagerFrameDelete:SetPoint("BOTTOMRIGHT", -160, 10)
-    self.checklistManagerFrameDelete:SetSize(70, 24)
-    self.checklistManagerFrameDelete:SetText("Delete")
-    self.checklistManagerFrameDelete:SetScript("OnClick", function(self)
-        ListTracker:DeleteSelectedEntry()
-    end)
+        "Select an item from the list by clicking the text and use the corresponding buttons to or move it")
 
     -- Create move up button
     self.checklistManagerFrameUp = CreateFrame("Button", nil, self.checklistManagerFrame, "UIPanelButtonTemplate")
@@ -1464,26 +1460,9 @@ function ListTracker:DeleteSelectedEntry(currentBox)
         return
     end
 
-    --[[ -- If nothing is selected, do nothing
-    if not self.selectedManagerFrameList or not self.selectedManagerFrameText then
-        return
-    end
-
-    local listId = self.selectedManagerFrameList
-    local entryId = self.checklistManagerFrameShownCheckboxes[self.selectedManagerFrameText].entryId
-
-    -- DEBUG self:Print("Deleted entry: "..entryId)
-    -- local allTableSize = table.getn(self.db.profile.lists[listId].entries)
-    -- DEBUG self:Print("All Quests Table Size: "..allTableSize)
-
-    self:RemoveEntryFromChecklistFrame(listId, entryId)
-
-    table.remove(self.db.profile.lists[listId].entries, entryId)
-
-    self:UpdateEntriesForScrollFrame()
-    self:UpdateEntryPositionsOnChecklistFrame() ]]
 end
 
+-- TODO Add moving icons like Delete Icon
 -- Moves the selected entry up in the options frame and database
 function ListTracker:MoveSelectedEntryUp()
 
