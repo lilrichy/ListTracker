@@ -2,7 +2,7 @@
 ListTracker = LibStub("AceAddon-3.0"):NewAddon("ListTracker", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 
 -- Addon Version
-local ltVersion = "1.0.0"
+local ltVersion = "1.0.1"
 
 -- Create empty table for localization data
 ListTracker.localize = {}
@@ -1232,29 +1232,29 @@ function ListTracker:CreateManagerFrame()
     end)
 
     -- Labels for Checkboxes
-    local checklistManagerTitleLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
-                                           "GameTooltipTextSmall")
-    checklistManagerTitleLabel:SetPoint("TOPLEFT", 40, -235)
-    checklistManagerTitleLabel:SetPoint("TOPRIGHT", 0, -235)
-    checklistManagerTitleLabel:SetJustifyH("LEFT")
-    checklistManagerTitleLabel:SetHeight(18)
-    checklistManagerTitleLabel:SetText("Weekly")
+    local checklistManagerWeeklyLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+                                            "GameTooltipTextSmall")
+    checklistManagerWeeklyLabel:SetPoint("TOPLEFT", 40, -235)
+    checklistManagerWeeklyLabel:SetPoint("TOPRIGHT", 0, -235)
+    checklistManagerWeeklyLabel:SetJustifyH("LEFT")
+    checklistManagerWeeklyLabel:SetHeight(18)
+    checklistManagerWeeklyLabel:SetText("Weekly")
 
-    local checklistManagerTitleLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
-                                           "GameTooltipTextSmall")
-    checklistManagerTitleLabel:SetPoint("TOPLEFT", 100, -235)
-    checklistManagerTitleLabel:SetPoint("TOPRIGHT", 0, -235)
-    checklistManagerTitleLabel:SetJustifyH("LEFT")
-    checklistManagerTitleLabel:SetHeight(18)
-    checklistManagerTitleLabel:SetText("Manual")
+    local checklistManagerManualLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+                                            "GameTooltipTextSmall")
+    checklistManagerManualLabel:SetPoint("TOPLEFT", 85, -235)
+    checklistManagerManualLabel:SetPoint("TOPRIGHT", 0, -235)
+    checklistManagerManualLabel:SetJustifyH("LEFT")
+    checklistManagerManualLabel:SetHeight(18)
+    checklistManagerManualLabel:SetText("Manual")
 
-    local checklistManagerTitleLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
+    local checklistManagerShownLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
                                            "GameTooltipTextSmall")
-    checklistManagerTitleLabel:SetPoint("TOPLEFT", 150, -235)
-    checklistManagerTitleLabel:SetPoint("TOPRIGHT", 0, -235)
-    checklistManagerTitleLabel:SetJustifyH("LEFT")
-    checklistManagerTitleLabel:SetHeight(18)
-    checklistManagerTitleLabel:SetText("Shown Items")
+    checklistManagerShownLabel:SetPoint("TOPLEFT", 135, -235)
+    checklistManagerShownLabel:SetPoint("TOPRIGHT", 0, -235)
+    checklistManagerShownLabel:SetJustifyH("LEFT")
+    checklistManagerShownLabel:SetHeight(18)
+    checklistManagerShownLabel:SetText("Shown Items")
 
     -- Create scrollable frame
     self.checklistManagerFrameScroll = CreateFrame("ScrollFrame", "checklistManagerFrameScroll",
@@ -1277,6 +1277,7 @@ function ListTracker:CreateManagerFrame()
     self.checklistManagerFrameClickable = {}
     self.checklistManagerFrameWeeklyCheckboxes = {}
     self.checklistManagerFrameManualCheckboxes = {}
+    self.checklistManagerFrameDeleteIcon = {}
 
     -- Set up vertical offset for checkbox list
     local offset = self.managerPanelHeight - 50
@@ -1284,7 +1285,7 @@ function ListTracker:CreateManagerFrame()
     -- Create a set amount of checkboxes and labels for reuse on the scrollable frame
     for i = 1, self.maxEntries do
 
-        -- Weekly Checkboxes in scrollable frame - Testing
+        -- Weekly Checkboxes in scrollable frame
         self.checklistManagerFrameWeeklyCheckboxes[i] = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                                             "UICheckButtonTemplate")
         self.checklistManagerFrameWeeklyCheckboxes[i]:SetPoint("TOPLEFT", 40, -offset)
@@ -1296,10 +1297,10 @@ function ListTracker:CreateManagerFrame()
         end)
         self.checklistManagerFrameWeeklyCheckboxes[i]:Hide()
 
-        -- Manual Checkboxes in scrollable frame - Testing
+        -- Manual Checkboxes in scrollable frame
         self.checklistManagerFrameManualCheckboxes[i] = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                                             "UICheckButtonTemplate")
-        self.checklistManagerFrameManualCheckboxes[i]:SetPoint("TOPLEFT", 100, -offset)
+        self.checklistManagerFrameManualCheckboxes[i]:SetPoint("TOPLEFT", 85, -offset)
         self.checklistManagerFrameManualCheckboxes[i]:SetWidth(25)
         self.checklistManagerFrameManualCheckboxes[i]:SetHeight(25)
         self.checklistManagerFrameManualCheckboxes[i]:SetChecked(false)
@@ -1311,7 +1312,7 @@ function ListTracker:CreateManagerFrame()
         -- Shown Checkbox
         self.checklistManagerFrameShownCheckboxes[i] = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                                            "UICheckButtonTemplate")
-        self.checklistManagerFrameShownCheckboxes[i]:SetPoint("TOPLEFT", 150, -offset)
+        self.checklistManagerFrameShownCheckboxes[i]:SetPoint("TOPLEFT", 135, -offset)
         self.checklistManagerFrameShownCheckboxes[i]:SetWidth(25)
         self.checklistManagerFrameShownCheckboxes[i]:SetHeight(25)
         self.checklistManagerFrameShownCheckboxes[i]:SetChecked(false)
@@ -1320,8 +1321,9 @@ function ListTracker:CreateManagerFrame()
         end)
         self.checklistManagerFrameShownCheckboxes[i]:Hide()
 
+        -- Clickable Frame
         self.checklistManagerFrameClickable[i] = CreateFrame("Frame", "ClickableFrame" .. i, self.checklistManagerFrame)
-        self.checklistManagerFrameClickable[i]:SetPoint("TOPLEFT", 180, -offset)
+        self.checklistManagerFrameClickable[i]:SetPoint("TOPLEFT", 250, -offset)
         self.checklistManagerFrameClickable[i]:SetWidth(300)
         self.checklistManagerFrameClickable[i]:SetHeight(25)
         self.checklistManagerFrameClickable[i]:SetScript("OnEnter", function(self)
@@ -1343,9 +1345,23 @@ function ListTracker:CreateManagerFrame()
 
         self.checklistManagerFrameText[i] =
             self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-        self.checklistManagerFrameText[i]:SetPoint("TOPLEFT", 180, -offset - 5)
+        self.checklistManagerFrameText[i]:SetPoint("TOPLEFT", 250, -offset - 5)
         self.checklistManagerFrameText[i]:SetText("")
         self.checklistManagerFrameText[i]:Hide()
+
+        -- Icon for Delete button
+        self.checklistManagerFrameDeleteIcon[i] = CreateFrame("BUTTON", nil, self.checklistManagerFrame,
+                                                      "SecureHandlerClickTemplate");
+        self.checklistManagerFrameDeleteIcon[i]:SetSize(25, 25)
+        self.checklistManagerFrameDeleteIcon[i]:SetPoint("TOPLEFT", 165, -offset)
+        self.checklistManagerFrameDeleteIcon[i]:RegisterForClicks("AnyUp")
+        self.checklistManagerFrameDeleteIcon[i]:SetNormalTexture("Interface\\RaidFrame\\ReadyCheck-NotReady")
+        -- self.checklistManagerFrameDeleteIcon[i]:SetPushedTexture("Interface\\Vehicles\\UI-Vehicles-Button-Exit-Down")
+        self.checklistManagerFrameDeleteIcon[i]:SetHighlightTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_7")
+        self.checklistManagerFrameDeleteIcon[i]:SetScript("OnClick", function(self)
+            ListTracker:DeleteSelectedEntry(self)
+        end)
+        self.checklistManagerFrameDeleteIcon[i]:Hide()
 
         offset = offset + 20
     end
@@ -1430,9 +1446,25 @@ function ListTracker:DeleteSelectedList()
 end
 
 -- Removes the selected entry from the manager frame and database
-function ListTracker:DeleteSelectedEntry()
+function ListTracker:DeleteSelectedEntry(currentBox)
 
-    -- If nothing is selected, do nothing
+    -- If icon clicked get info
+    if currentBox then
+        local listId = currentBox.listId
+        local entryId = currentBox.entryId
+
+        self:Print("Deleted entry: " .. entryId)
+
+        self:RemoveEntryFromChecklistFrame(listId, entryId)
+
+        table.remove(self.db.profile.lists[listId].entries, entryId)
+
+        self:UpdateEntriesForScrollFrame()
+        self:UpdateEntryPositionsOnChecklistFrame()
+        return
+    end
+
+    --[[ -- If nothing is selected, do nothing
     if not self.selectedManagerFrameList or not self.selectedManagerFrameText then
         return
     end
@@ -1449,7 +1481,7 @@ function ListTracker:DeleteSelectedEntry()
     table.remove(self.db.profile.lists[listId].entries, entryId)
 
     self:UpdateEntriesForScrollFrame()
-    self:UpdateEntryPositionsOnChecklistFrame()
+    self:UpdateEntryPositionsOnChecklistFrame() ]]
 end
 
 -- Moves the selected entry up in the options frame and database
@@ -1837,6 +1869,11 @@ function ListTracker:UpdateEntriesForScrollFrame()
                     weeklyCheckbox.listId = listId
                     weeklyCheckbox:Show()
 
+                    local deleteIcon = self.checklistManagerFrameDeleteIcon[numberOfRows]
+                    deleteIcon.entryId = entryId
+                    deleteIcon.listId = listId
+                    deleteIcon:Show()
+
                     numberOfRows = numberOfRows + 1
                 end
             end
@@ -1848,6 +1885,7 @@ function ListTracker:UpdateEntriesForScrollFrame()
         self.checklistManagerFrameText[i]:Hide()
         self.checklistManagerFrameWeeklyCheckboxes[i]:Hide()
         self.checklistManagerFrameManualCheckboxes[i]:Hide()
+        self.checklistManagerFrameDeleteIcon[i]:Hide()
     end
 
     -- Execute scroll bar update 
