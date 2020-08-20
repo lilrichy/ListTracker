@@ -52,8 +52,8 @@ ListTracker.ListTrackerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("ListTra
     icon = "Interface\\RAIDFRAME\\ReadyCheck-Ready.blp",
     OnTooltipShow = function(tt)
         tt:AddLine("ListTracker - " .. ltVersion)
-        tt:AddLine("|cffffff00" .. "Left Click to hide/show frame")
-        tt:AddLine("|cffffff00" .. "Right Click to open options")
+        tt:AddLine("|cffffff00" .. "Left Click to hide/show")
+        tt:AddLine("|cffffff00" .. "Right Click to open manager")
     end,
     OnClick = function(self, button)
         ListTracker:HandleIconClick(button)
