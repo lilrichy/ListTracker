@@ -2,7 +2,7 @@
 ListTracker = LibStub("AceAddon-3.0"):NewAddon("ListTracker", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 
 -- Addon Version
-local ltVersion = "1.1.0"
+local ltVersion = "1.1.1"
 
 -- Create empty table for localization data
 ListTracker.localize = {}
