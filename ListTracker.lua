@@ -2,7 +2,7 @@
 ListTracker = LibStub("AceAddon-3.0"):NewAddon("ListTracker", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 
 -- Addon Version
-local ltVersion = "1.0.2"
+local ltVersion = "1.1.0"
 
 -- Create empty table for localization data
 ListTracker.localize = {}
@@ -322,6 +322,11 @@ function ListTracker:CreateChecklistFrame()
         ListTracker.db.profile.framePosition.anchor, _, _, ListTracker.db.profile.framePosition.x, ListTracker.db
             .profile.framePosition.y = frame:GetPoint()
     end)
+
+    -- 9.0 Update to Backdrop
+    if not self.checklistFrame.SetBackdropColor then
+        Mixin(self.checklistFrame, BackdropTemplateMixin)
+    end
     self.checklistFrame:SetBackdropColor(0, 0, 0, 1)
     self.checklistFrame:SetScale(self.db.profile.setScale)
     self.checklistFrame:SetHeight(200)
