@@ -1,7 +1,7 @@
 package-as: ListTracker
 
 externals:
-    libs/Ace3: svn: https://repos.curseforge.com/wow/ace3/trunk
+    libs/Ace3: svn:https://repos.curseforge.com/wow/ace3/trunk
     tag: latest
            
 ignore: # Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
