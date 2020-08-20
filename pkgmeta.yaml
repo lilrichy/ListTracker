@@ -1,7 +1,7 @@
 package-as: ListTracker
 
 externals:
-    libs/Ace3: https://repos.wowace.com/wow/ace3/trunk
+    libs/Ace3: https://www.wowace.com/projects/ace3/files
     tag: r1237-alpha
            
 ignore: # Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
