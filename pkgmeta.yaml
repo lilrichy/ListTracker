@@ -1,0 +1,29 @@
+package-as: ListTracker
+
+externals:
+    libs/Ace3:
+        url: https://repos.wowace.com/wow/ace3/trunk
+       
+
+move-folders:
+    
+
+ignore: # Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
+    - icon.ai
+    - Releases
+    - ScreenShots
+    - README.md
+    - TODO.txt
+
+required-dependencies:
+    - 
+
+optional-dependencies:
+    - 
+
+manual-changelog: ChangeLog.txt
+
+license-output: LICENSE.txt
+
+tools-used:
+    - 
