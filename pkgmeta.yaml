@@ -3,9 +3,7 @@ package-as: ListTracker
 externals:
     libs/Ace3: https://repos.wowace.com/wow/ace3/trunk
     tag: r1237-alpha
-       
-move-folders:
-    
+           
 ignore: # Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
     - icon.ai
     - Releases
