@@ -2,3 +2,4 @@ Remove Objective Links
 Check Icon Visibility option works on options window 
     - Missing Function
     - Add ask to reload dialog when check box changes or chat command used
+Automate Upload to curse.
