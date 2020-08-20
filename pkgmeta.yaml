@@ -13,7 +13,7 @@ ignore: # Files and directories beginning with a dot (such as .git) are automati
     - README.md
     - TODO.txt
 
-manual-changelog: ChangeLog.txt
+manual-changelog: CHANGELOG.txt
 
 required=dependencies:
   - Ace3
