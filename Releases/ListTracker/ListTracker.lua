@@ -2,7 +2,7 @@
 ListTracker = LibStub("AceAddon-3.0"):NewAddon("ListTracker", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 
 -- Addon Version
-local ltVersion = "1.0.1"
+local ltVersion = "1.0.2"
 
 -- Create empty table for localization data
 ListTracker.localize = {}
@@ -1683,8 +1683,12 @@ end
 
 -- Change Weekly database value
 function ListTracker:ToggleChecklistManagerWeeklyCheckbox(currentBox)
-    self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].weekly = currentBox:GetChecked()
-    self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].manual = not currentBox:GetChecked()
+    if currentBox:GetChecked() then
+        self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].weekly = currentBox:GetChecked()
+        self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].manual = not currentBox:GetChecked()
+    else
+        self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].weekly = currentBox:GetChecked()
+    end
     -- Update positions because of visibility change
     self:UpdateEntryPositionsOnChecklistFrame()
     self:UpdateEntriesForScrollFrame()
@@ -1692,8 +1696,12 @@ end
 
 -- Change Manual database value
 function ListTracker:ToggleChecklistManagerManualCheckbox(currentBox)
-    self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].manual = currentBox:GetChecked()
-    self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].weekly = not currentBox:GetChecked()
+    if currentBox:GetChecked() then
+        self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].manual = currentBox:GetChecked()
+        self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].weekly = not currentBox:GetChecked()
+    else
+        self.db.profile.lists[currentBox.listId].entries[currentBox.entryId].manual = currentBox:GetChecked()
+    end
     -- Update positions because of visibility change
     self:UpdateEntryPositionsOnChecklistFrame()
     self:UpdateEntriesForScrollFrame()
