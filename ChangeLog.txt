@@ -1,4 +1,4 @@
- 8/20/2020 - 1.1.5
+ 8/20/2020 - @project-version@
     Updated to work on PTR for Retail version 9.0.1 - Testers needed!!!
     Patched error due to api change.
     Updated Libraries.    
