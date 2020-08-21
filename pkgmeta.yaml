@@ -12,6 +12,7 @@ ignore: # Files and directories beginning with a dot (such as .git) are automati
     - README.md
     - TODO.txt
     - tests
+    - runall.bat
 
 manual-changelog: CHANGELOG.txt
 

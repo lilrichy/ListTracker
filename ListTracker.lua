@@ -1,7 +1,7 @@
 -- Create main object and load AceConsole so we can use console commands
 ListTracker = LibStub("AceAddon-3.0"):NewAddon("ListTracker", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 
--- Addon Version - testing automatic versioning
+-- Addon Version
 local ltVersion = "@project-version@"
 
 -- Create empty table for localization data
