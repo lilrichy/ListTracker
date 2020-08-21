@@ -162,10 +162,16 @@ function ListTracker:HandleChatMessageCommands(msg)
         self:UpdateForNewDateAndTime()
     elseif command == "options" then
         InterfaceOptionsFrame_OpenToCategory(self.checklistOptionsFrame)
+        InterfaceOptionsFrame_OpenToCategory(self.checklistOptionsFrame)
+
     elseif command == "manager" then
         InterfaceOptionsFrame_OpenToCategory(self.checklistManagerFrame)
+        InterfaceOptionsFrame_OpenToCategory(self.checklistManagerFrame)
+
     elseif command == "profiles" then
         InterfaceOptionsFrame_OpenToCategory(self.checklistProfilesFrame)
+        InterfaceOptionsFrame_OpenToCategory(self.checklistProfilesFrame)
+
     elseif command == "help" then
         self:Print("\"/lt show\" : shows checklist")
         self:Print("\"/lt hide\" : hides checklist")
@@ -1903,6 +1909,8 @@ function ListTracker:HandleIconClick(button)
     elseif button == "RightButton" then
         -- Open options menu in interface->addon menu
         InterfaceOptionsFrame_OpenToCategory(self.checklistManagerFrame)
+        InterfaceOptionsFrame_OpenToCategory(self.checklistManagerFrame)
+
     end
 end
 
