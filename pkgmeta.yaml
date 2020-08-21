@@ -11,7 +11,7 @@ ignore: # Files and directories beginning with a dot (such as .git) are automati
     - ScreenShots
     - README.md
     - TODO.txt
-    - Libs/LibStub/tests
+    - libs/Ace3/tests
 
 manual-changelog: CHANGELOG.txt
 
