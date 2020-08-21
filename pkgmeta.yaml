@@ -4,7 +4,13 @@ externals:
     libs/Ace3: 
       url: https://repos.curseforge.com/wow/ace3/trunk
       tag: r1237-alpha
-           
+     
+required-dependencies: Ace3
+
+manual-changelog: CHANGELOG.txt
+
+license-output: LICENSE.txt
+
 ignore: # Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
     - icon.ai
     - Releases
@@ -13,8 +19,3 @@ ignore: # Files and directories beginning with a dot (such as .git) are automati
     - TODO.txt
     - libs/Ace3/tests
     - Publish.txt
-
-manual-changelog: CHANGELOG.txt
-
-required-dependencies:
-  - Ace3

@@ -1,4 +1,17 @@
-Remove Objective Links
-Check Icon Visibility option works on options window 
-    - Missing Function
-    - Add ask to reload dialog when check box changes or chat command used
+Mini map Icon Visibility option:
+    - Lock location 
+    - Drag to move
+    - Missing Function - investigate...
+    - Add ask to reload dialog when check box changes or chat command used / find way to hide or show icon with out reloading - other addons can do this
+
+Appearance Changes: 
+    Add backdrop shadow / alpha option slider
+    Percentage compleat % for catagories
+
+Features to add:
+    Click on text to check the box
+    Right click option on text
+    Ability to edit Lists and List items
+
+Bugs or Updates needed:
+    Remove Objective Links
