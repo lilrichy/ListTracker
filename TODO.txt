@@ -1,6 +1,5 @@
 Mini map Icon Visibility option:
     - Lock location 
-    - Drag to move
     - Missing Function - investigate...
     - Add ask to reload dialog when check box changes or chat command used / find way to hide or show icon with out reloading - other addons can do this
 
@@ -9,9 +8,22 @@ Appearance Changes:
     Percentage compleat % for catagories
 
 Features to add:
-    Click on text to check the box
+    Click on text to check the box in checkList Frame
     Right click option on text
-    Ability to edit Lists and List items
+        Menu
+            Hide item
+            Edit item
+            Delete item
+    Ability to edit Lists and List items in manager window
 
-Bugs or Updates needed:
+Bugs or Updates:
     Remove Objective Links
+    Scroll bar not working?
+    LibDataBroker added
+    LibDBIcon added
+    Libs need to be updated to remove Ace3 folder
+
+News Screen:
+    Shown at login on update
+    Shown with chat command
+    Dialog box showing new features or updates

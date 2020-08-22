@@ -91,8 +91,8 @@ ListTracker.ListTrackerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("ListTra
     icon = "Interface\\RAIDFRAME\\ReadyCheck-Ready.blp",
     OnTooltipShow = function(tt)
         tt:AddLine("ListTracker - " .. ltVersion)
-        tt:AddLine("|cffffff00" .. "Left Click to hide/show")
-        tt:AddLine("|cffffff00" .. "Right Click to open manager")
+        tt:AddLine("|cffffff00" .. "Left Click to hide/show list")
+        tt:AddLine("|cffffff00" .. "Right Click to open list manager")
     end,
     OnClick = function(self, button)
         ListTracker:HandleIconClick(button)
@@ -155,7 +155,7 @@ function ListTracker:UpdateVisibility()
     self:UpdateVisibilityOnChecklistFrame(self.db.profile.hideCompleted)
     self:UpdateEntryPositionsOnChecklistFrame()
     self:UpdateVisibilityForChecklistFrame()
-    self:UpdateVisibilityForIcon(self.db.profile.icon.hide)
+    self:UpdateVisibilityForIcon(self.db.profile.icon)
 end
 
 function ListTracker:HandleChatMessageCommands(msg)
@@ -197,7 +197,7 @@ function ListTracker:HandleChatMessageCommands(msg)
         self.db.profile.locked = true
     elseif command == "unlock" then
         self.db.profile.locked = false
-    elseif command == "check" and text == "time" then
+    elseif command == "check" then
         self:UpdateForNewDateAndTime()
     elseif command == "options" then
         InterfaceOptionsFrame_OpenToCategory(self.checklistOptionsFrame)
@@ -210,22 +210,32 @@ function ListTracker:HandleChatMessageCommands(msg)
     elseif command == "profiles" then
         InterfaceOptionsFrame_OpenToCategory(self.checklistProfilesFrame)
         InterfaceOptionsFrame_OpenToCategory(self.checklistProfilesFrame)
+    
+    elseif command == "r" then
+        ListTracker:ReloadUiDialog()
+
+    elseif command == "about" or "info" or "news" then
+        -- TODO info screen - shown when updated or when this command
 
     elseif command == "help" then
+        self:Print("\"/lt toggle\" : toggles the checklist")
         self:Print("\"/lt show\" : shows checklist")
         self:Print("\"/lt hide\" : hides checklist")
-        self:Print("\"/lt show icon\" : shows minimap icon (requires ui restart to take effect)")
-        self:Print("\"/lt hide icon\" : hides minimap icon (requires ui restart to take effect)")
+        self:Print("\"/lt toggle icon\" : toggles the minimap icon")
+        self:Print("\"/lt show icon\" : shows minimap icon")
+        self:Print("\"/lt hide icon\" : hides minimap icon")
         self:Print("\"/lt lock\" : locks checklist position")
         self:Print("\"/lt unlock\" : unlocks checklist position")
-        self:Print("\"/lt check time\" : check if entries should be reset")
-        self:Print("\"/lt show completed\" : show completed entries")
-        self:Print("\"/lt hide completed\" : hide completed entries")
+        self:Print("\"/lt check\" : check if list should be reset")
+        self:Print("\"/lt toggle completed\" : toggles completed items")
+        self:Print("\"/lt show completed\" : show completed items")
+        self:Print("\"/lt hide completed\" : hide completed items")
         self:Print("\"/lt options\" : opens options dialog")
         self:Print("\"/lt profiles\" : opens profiles dialog")
-        self:Print("\"/lt manager\" : opens manager dialog")
+        self:Print("\"/lt manager\" : opens list manager dialog")
+        self:Print("\"/lt about\": shows the news screen - COMING SOON!")
     else
-        self:Print("Usage: \"/lt <command> <identifier>\"")
+        self:Print("Usage: \"/lt <command>\"")
         self:Print("Type: \"/lt help\" for a list of commands")
     end
 end
@@ -1026,21 +1036,21 @@ function ListTracker:CreateManagerFrame()
                         name = "Minimap Icon",
                         order = 30,
                         args = {
-                            iconLabel = {
+                            --[[ iconLabel = {
                                 type = "description",
-                                name = "Requires UI restart to take effect",
+                                name = " ",
                                 order = 10
-                            },
+                            }, ]]
                             icon = {
                                 type = "toggle",
                                 name = "Hide Minimap Icon",
-                                order = 20,
+                                order = 10,
                                 get = function(info)
                                     return ListTracker.db.profile.icon.hide
                                 end,
                                 set = function(info, value)
                                     ListTracker.db.profile.icon.hide = value
-                                    ListTracker:ReloadUiDialog()
+                                    ListTracker:UpdateVisibilityForIcon(self.db.profile.icon)
                                 end
                             }
                         }
@@ -1970,6 +1980,7 @@ end
 
 function ListTracker:UpdateVisibilityForIcon(hidden)
     -- TODO
+    self.icon:Refresh("ListTrackerDO", hidden)
 end
 
 function ListTracker.ObjectiveTrackerFrameShow(...)
