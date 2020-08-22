@@ -2,6 +2,7 @@
 ## Title: ListTracker
 ## Author: Downwind / LiLRichy
 ## Version: @project-version@
+## URL: https://www.curseforge.com/wow/addons/list-tracker
 ## Notes: To-do list to track professions and other things like mount/xmog runs, daily's, or anything you want to track. 
 ## SavedVariables: ListTrackerDB
 ## DefaultState: enabled
@@ -9,4 +10,5 @@
 embeds.xml
 
 ListTracker.lua
+Dialogs.lua
 Functions.lua
