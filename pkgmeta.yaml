@@ -1,10 +1,10 @@
 package-as: ListTracker
 
 externals:
-    libs/Ace3: 
+    libs: 
       url: https://repos.curseforge.com/wow/ace3/trunk
       tag: r1237-alpha
-     
+    
 required-dependencies: Ace3
 
 manual-changelog: CHANGELOG.txt
@@ -17,5 +17,5 @@ ignore: # Files and directories beginning with a dot (such as .git) are automati
     - ScreenShots
     - README.md
     - TODO.txt
-    - libs/Ace3/tests
+    - libs/tests
     - Publish.txt
