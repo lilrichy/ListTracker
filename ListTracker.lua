@@ -1,20 +1,43 @@
--- List Tracker - an addon for World of Warcraft that creates a todo list for the player to populate and use in order to help the player keep track of daily repetitive tasks. 
--- Great for profession cool downs or tracking world boss / rare kills or any thing else you would need a todo list for. 
+--[[ 
 
--- The original project and this one use the GNU General Public License v3 -  this License gives you legal permission to freely copy, distribute and/or modify the source code and addon.
--- If you do copy, distribute and/or modify it then you must provide the source code and must abide by and provide these terms, rights, and freedoms. 
--- For the developers' and authors' protection, the GPL clearly explains that there is no warranty for this free software. 
+List Tracker - an addon for World of Warcraft that creates a todo list for the player 
+to populate and use in order to help the player keep track of daily repetitive tasks. 
+Great for profession cool downs or tracking world boss / rare kills or any thing else 
+you would need a todo list for. 
 
--- Original Idea and Source from https://www.curseforge.com/wow/addons/daily-to-do -v1.0.3 
+All new modifications and updates are Copyright (C) 2020 LiLRichy https://www.curseforge.com/wow/addons/list-tracker
+Source Code can be found at https://github.com/lilrichy/ListTracker
 
--- For both users' and authors' sake, the GPL requires that modified versions be marked as changed, so that their problems will not be attributed erroneously to authors of previous versions.
--- This addon is an updated and CHANGED version of the original using some original source code and abiding by the original GNU General Public License.
+The original project and this one use the GNU General Public License v3 -  
+this License gives you legal permission to freely copy, distribute and/or modify the source code and addon.
+If you do copy, distribute and/or modify it then you must provide the source code 
+and must abide by and provide these terms, rights, and freedoms. 
 
--- All new modifications and updates are Copyright (C) 2020 LiLRichy https://www.curseforge.com/wow/addons/list-tracker
--- Source Code can be found at https://github.com/lilrichy/ListTracker
+Original Idea and Source from https://www.curseforge.com/wow/addons/daily-to-do -v1.0.3 
 
+For both users' and authors' sake, the GPL requires that modified versions be marked as changed, 
+so that their problems will not be attributed erroneously to authors of previous versions.
+This addon is an updated and CHANGED version of the original using some original source code 
+and abiding by the original GNU General Public License.
 
--- Create main object and load AceConsole so we can use console commands
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 3
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+=============================================================================================================================================================================================
+
+]] -- Create main object and load AceConsole so we can use console commands
+
 ListTracker = LibStub("AceAddon-3.0"):NewAddon("ListTracker", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 
 -- Addon Version
@@ -1017,6 +1040,7 @@ function ListTracker:CreateManagerFrame()
                                 end,
                                 set = function(info, value)
                                     ListTracker.db.profile.icon.hide = value
+                                    ListTracker:ReloadUiDialog()
                                 end
                             }
                         }
@@ -1042,6 +1066,8 @@ function ListTracker:CreateManagerFrame()
                                         nil, ListTracker.db.profile.framePosition.anchor,
                                         ListTracker.db.profile.framePosition.x,
                                         ListTracker.db.profile.framePosition.y - 16)
+                                        ListTracker:ReloadUiDialog()
+
                                 end
                             },
                             memoryLabel = {

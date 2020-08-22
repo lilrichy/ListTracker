@@ -7,4 +7,6 @@
 ## DefaultState: enabled
 
 embeds.xml
+
 ListTracker.lua
+Functions.lua

@@ -1,35 +1,37 @@
   - 1.1.7
-    Updated License on curse and in code.
+   Added Reload Dialog box when you chose an option requiring a reload.
+   Fixed Missing Libraries.
+   Updated License on curse and in code.
  
  8/20/2020 - 1.1.6 Beta
-    Updated to work on PTR for Retail version 9.0.1 - Testers needed!!!
-    Patched error due to api change.
-    Updated Libraries.    
-    Added Auto Packaging and versioning.
+   Updated to work on PTR for Retail version 9.0.1 - Testers needed!!!
+   Patched error due to api change.
+   Updated Libraries.    
+   Added Auto Packaging and versioning.
  
  8/16/2020 - 1.0.2
-    Fixed bug in weekly and manual checkboxes.
+   Fixed bug in weekly and manual checkboxes.
     
  8/16/2020 - 1.0.1
-    Add Weekly and Manual Options to individual list items and to new entry creation. I changed how this was shown to make it easy to change and view what items are set to different resets.
-    Moved Option items around to look better.
-    Removed some unneeded things.
-    Changed manager option colors to be uniform with the other option windows.
-    Adjusted checkboxes and Create button.
-    Added Delete Icon next to list items.
-    Added Move Icons next to list items.
-    Fixed Checkboxes selection limits. Should only be able to check weekly or Manual now instead of both.
+   Add Weekly and Manual Options to individual list items and to new entry creation. I changed how this was shown to make it easy to change and view what items are set to different resets.
+   Moved Option items around to look better.
+   Removed some unneeded things.
+   Changed manager option colors to be uniform with the other option windows.
+   Adjusted checkboxes and Create button.
+   Added Delete Icon next to list items.
+   Added Move Icons next to list items.
+   Fixed Checkboxes selection limits. Should only be able to check weekly or Manual now instead of both.
 
 8/11/2020 - 1.0.0 Release
-    Added scaling to the list to change the size of the list and the font. 
-    Added slider in options window to change Scale size.
-    Spelling fixes.
-    Updated version to 1.0.0 for release onto curse.
+   Added scaling to the list to change the size of the list and the font. 
+   Added slider in options window to change Scale size.
+   Spelling fixes.
+   Updated version to 1.0.0 for release onto curse.
 
 7/31/2020 - 0.0.1
-    Forked and Ported over to Current Version of WoW 8.3.0
-    Updated Ace 3 Libs
-    Fixed Prefix Error
-    Changed slash commands so they all reflect the same namespace /lt or /listTracker
-    Edited text to be more user friendly
-    Removed Days and Weekly / Manual options to prevent bugs and make the UI easier to use and less confusing
+   Forked and Ported over to Current Version of WoW 8.3.0
+   Updated Ace 3 Libs
+   Fixed Prefix Error
+   Changed slash commands so they all reflect the same namespace /lt or /listTracker
+   Edited text to be more user friendly
+   Removed Days and Weekly / Manual options to prevent bugs and make the UI easier to use and less confusing
