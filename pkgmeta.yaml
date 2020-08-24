@@ -5,7 +5,8 @@ externals:
       url: https://repos.curseforge.com/wow/ace3/trunk
       tag: r1237-alpha
     
-required-dependencies: Ace3
+required-dependencies: 
+    - Ace3
 
 manual-changelog: CHANGELOG.txt
 
