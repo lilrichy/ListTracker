@@ -1,4 +1,4 @@
-8/20/2020 - 1.1.7
+8/24/2020 - 1.1.7
    Added limits to text boxes to prevent crazy long list lengths.
    Relocated some manager widgets.
    Reworded a few options.
