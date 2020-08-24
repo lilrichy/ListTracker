@@ -1,6 +1,10 @@
 8/20/2020 - 1.1.7
+   Added limits to text boxes to prevent crazy long list lengths.
+   Relocated some manager widgets.
+   Reworded a few options.
    Mini map icon can now be toggled without a reload.
    Updated chat commands.
+   Chat commands and minimap icon now take you to correct options when opened the first time.
    Added Reload Dialog box when you chose an option requiring a reload.
    Fixed Missing Libraries.
    Updated License on curse and in code.

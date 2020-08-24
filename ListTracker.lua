@@ -76,6 +76,7 @@ ListTracker.checklistFrameHeaderCheckboxPool = {}
 
 -- Create color variables
 ListTracker.selectedEntryColor = "|cffFFB90F"
+ListTracker.unselectedEntryColor = "|cFF00FF00"
 ListTracker.managerPanelHeight = 300
 
 ListTracker.timerId = nil
@@ -960,19 +961,19 @@ function ListTracker:CreateManagerFrame()
                     frames = {
                         type = "group",
                         inline = true,
-                        name = "ListTracker Frame Options",
+                        name = "List Options",
                         order = 20,
                         args = {
                             locked = {
                                 type = "toggle",
-                                name = "Lock Frame",
+                                name = "Lock List Position",
                                 order = 10,
                                 get = getOpt,
                                 set = setOpt
                             },
                             hidden = {
                                 type = "toggle",
-                                name = "Hide Frame",
+                                name = "Hide List",
                                 order = 20,
                                 get = function(info)
                                     return ListTracker.db.profile.framePosition.hidden
@@ -984,7 +985,7 @@ function ListTracker:CreateManagerFrame()
                             },
                             showListHeaders = {
                                 type = "toggle",
-                                name = "Show list headers",
+                                name = "Show list category",
                                 order = 30,
                                 get = getOpt,
                                 set = function(info, value)
@@ -1034,11 +1035,6 @@ function ListTracker:CreateManagerFrame()
                         name = "Minimap Icon",
                         order = 30,
                         args = {
-                            --[[ iconLabel = {
-                                type = "description",
-                                name = " ",
-                                order = 10
-                            }, ]]
                             icon = {
                                 type = "toggle",
                                 name = "Hide Minimap Icon",
@@ -1101,21 +1097,24 @@ function ListTracker:CreateManagerFrame()
                                      "ListTracker")
 
     -- Add entry creation form to Manager frame
+    -- New List Label
     local checklistManagerListLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     checklistManagerListLabel:SetPoint("TOPLEFT", 10, -10)
     checklistManagerListLabel:SetPoint("TOPRIGHT", 0, -10)
     checklistManagerListLabel:SetJustifyH("LEFT")
     checklistManagerListLabel:SetHeight(18)
-    checklistManagerListLabel:SetText("New List")
+    checklistManagerListLabel:SetText("New Category")
 
+    -- New List description
     local checklistManagerListTextFieldLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
                                                    "GameTooltipTextSmall")
     checklistManagerListTextFieldLabel:SetPoint("TOPLEFT", 10, -30)
     checklistManagerListTextFieldLabel:SetPoint("TOPRIGHT", 0, -30)
     checklistManagerListTextFieldLabel:SetJustifyH("LEFT")
     checklistManagerListTextFieldLabel:SetHeight(18)
-    checklistManagerListTextFieldLabel:SetText("Create a new list category")
+    checklistManagerListTextFieldLabel:SetText("Create a new category")
 
+    -- New List Edit Box
     self.checklistManagerListTextField = CreateFrame("EditBox", "ChecklistManagerListTextField",
                                              self.checklistManagerFrame, "InputBoxTemplate")
     self.checklistManagerListTextField:SetSize(200, 28)
@@ -1127,36 +1126,39 @@ function ListTracker:CreateManagerFrame()
         ListTracker:CreateChecklistList()
     end)
 
+    -- New List Create Button
     self.checklistManagerListTextFieldButton = CreateFrame("Button", nil, self.checklistManagerFrame,
                                                    "UIPanelButtonTemplate")
-    self.checklistManagerListTextFieldButton:SetSize(100, 24)
-    self.checklistManagerListTextFieldButton:SetPoint("TOPLEFT", 500, -46)
-    self.checklistManagerListTextFieldButton:SetText("Create")
+    self.checklistManagerListTextFieldButton:SetSize(120, 24)
+    self.checklistManagerListTextFieldButton:SetPoint("TOPLEFT", 480, -46)
+    self.checklistManagerListTextFieldButton:SetText("Create Category")
     self.checklistManagerListTextFieldButton:SetScript("OnClick", function(frame)
         ListTracker:CreateChecklistList()
     end)
 
+    -- New Item Label
     local checklistManagerEntryLabel =
         self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    checklistManagerEntryLabel:SetPoint("TOPLEFT", 10, -76)
-    checklistManagerEntryLabel:SetPoint("TOPRIGHT", 0, -76)
+    checklistManagerEntryLabel:SetPoint("TOPLEFT", 10, -95)
+    checklistManagerEntryLabel:SetPoint("TOPRIGHT", 0, -95)
     checklistManagerEntryLabel:SetJustifyH("LEFT")
     checklistManagerEntryLabel:SetHeight(18)
     checklistManagerEntryLabel:SetText("New Item")
 
+    -- New Item Description
     local checklistManagerTextFieldLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
                                                "GameTooltipTextSmall")
-    checklistManagerTextFieldLabel:SetPoint("TOPLEFT", 10, -95)
-    checklistManagerTextFieldLabel:SetPoint("TOPRIGHT", 0, -95)
+    checklistManagerTextFieldLabel:SetPoint("TOPLEFT", 10, -115)
+    checklistManagerTextFieldLabel:SetPoint("TOPRIGHT", 0, -115)
     checklistManagerTextFieldLabel:SetJustifyH("LEFT")
     checklistManagerTextFieldLabel:SetHeight(18)
-    checklistManagerTextFieldLabel:SetText("Create a new item and add to selected category")
+    checklistManagerTextFieldLabel:SetText("Add an item to the selected category")
 
-    -- Add entry creation form to options frame
+    -- New Item Edit Box
     self.checklistManagerTextField = CreateFrame("EditBox", "ChecklistManagerTextField", self.checklistManagerFrame,
                                          "InputBoxTemplate")
     self.checklistManagerTextField:SetSize(200, 28)
-    self.checklistManagerTextField:SetPoint("TOPLEFT", 20, -109)
+    self.checklistManagerTextField:SetPoint("TOPLEFT", 20, -129)
     self.checklistManagerTextField:SetMaxLetters(30)
     self.checklistManagerTextField:SetMultiLine(false)
     self.checklistManagerTextField:SetAutoFocus(false)
@@ -1164,47 +1166,53 @@ function ListTracker:CreateManagerFrame()
         ListTracker:CreateChecklistEntry()
     end)
 
+    -- Reset Interval Description
     local checklistManagerWeeklyLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
                                             "GameTooltipTextSmall")
-    checklistManagerWeeklyLabel:SetPoint("TOPLEFT", 270, -95)
-    checklistManagerWeeklyLabel:SetPoint("TOPRIGHT", 0, -95)
+    checklistManagerWeeklyLabel:SetPoint("TOPLEFT", 280, -115)
+    checklistManagerWeeklyLabel:SetPoint("TOPRIGHT", 0, -115)
     checklistManagerWeeklyLabel:SetJustifyH("LEFT")
     checklistManagerWeeklyLabel:SetHeight(18)
     checklistManagerWeeklyLabel:SetText("Reset, leave blank for daily")
 
+    -- Weekly Checkbox
     self.checklistManagerWeeklyCheckbox = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                               "UICheckButtonTemplate")
-    self.checklistManagerWeeklyCheckbox:SetPoint("TOPLEFT", 270, -110)
+    self.checklistManagerWeeklyCheckbox:SetPoint("TOPLEFT", 275, -130)
     self.checklistManagerWeeklyCheckbox:SetWidth(25)
     self.checklistManagerWeeklyCheckbox:SetHeight(25)
     self.checklistManagerWeeklyCheckbox:SetScript("OnClick", function(frame)
         ListTracker.checklistManagerManualCheckbox:SetChecked(false)
     end)
 
+    -- Weekly Label
     local checklistManagerWeeklyText = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-    checklistManagerWeeklyText:SetPoint("TOPLEFT", 300, -115)
+    checklistManagerWeeklyText:SetPoint("TOPLEFT", 305, -135)
     checklistManagerWeeklyText:SetHeight(18)
     checklistManagerWeeklyText:SetText("Weekly")
 
+    -- Manual Checkbox
     self.checklistManagerManualCheckbox = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                               "UICheckButtonTemplate")
-    self.checklistManagerManualCheckbox:SetPoint("TOPLEFT", 350, -110)
+    self.checklistManagerManualCheckbox:SetPoint("TOPLEFT", 355, -130)
     self.checklistManagerManualCheckbox:SetWidth(25)
     self.checklistManagerManualCheckbox:SetHeight(25)
     self.checklistManagerManualCheckbox:SetScript("OnClick", function(frame)
         ListTracker.checklistManagerWeeklyCheckbox:SetChecked(false)
     end)
 
+    -- Manual Label
     local checklistManagerManualText = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-    checklistManagerManualText:SetPoint("TOPLEFT", 380, -115)
+    checklistManagerManualText:SetPoint("TOPLEFT", 385, -135)
     checklistManagerManualText:SetHeight(18)
     checklistManagerManualText:SetText("Manual")
 
+    -- New Item Create Button
     self.checklistManagerTextFieldButton = CreateFrame("Button", nil, self.checklistManagerFrame,
                                                "UIPanelButtonTemplate")
     self.checklistManagerTextFieldButton:SetSize(100, 24)
-    self.checklistManagerTextFieldButton:SetPoint("TOPLEFT", 500, -135)
-    self.checklistManagerTextFieldButton:SetText("Create")
+    self.checklistManagerTextFieldButton:SetPoint("TOPLEFT", 500, -130)
+    self.checklistManagerTextFieldButton:SetText("Add Item")
     self.checklistManagerTextFieldButton:SetScript("OnClick", function(frame)
         ListTracker:CreateChecklistEntry()
     end)
@@ -1213,13 +1221,13 @@ function ListTracker:CreateManagerFrame()
     local checklistManagerTitle = self.checklistManagerFrame:CreateFontString("ManagerTitleText", nil,
                                       "GameFontNormalLarge")
     checklistManagerTitle:SetText("|cffFFB90FList Category|r")
-    checklistManagerTitle:SetPoint("TOPLEFT", self.checklistManagerFrame, "TOPLEFT", 10, -215)
+    checklistManagerTitle:SetPoint("TOPLEFT", self.checklistManagerFrame, "TOPLEFT", 10, -205)
     checklistManagerTitle:Show()
 
     -- Add checklist list dropdown
     self.checklistManagerListDropDown = CreateFrame("Button", "ChecklistManagerListDropDown",
                                             self.checklistManagerFrame, "UIDropDownMenuTemplate")
-    self.checklistManagerListDropDown:SetPoint("TOPLEFT", self.checklistManagerFrame, "TOPLEFT", 120, -210)
+    self.checklistManagerListDropDown:SetPoint("TOPLEFT", self.checklistManagerFrame, "TOPLEFT", 120, -200)
     self.checklistManagerListDropDown:Show()
 
     -- Initialize drop down
@@ -1257,7 +1265,7 @@ function ListTracker:CreateManagerFrame()
     -- Delete Category Button
     self.checklistManagerDeleteListButton = CreateFrame("Button", nil, self.checklistManagerFrame,
                                                 "UIPanelButtonTemplate")
-    self.checklistManagerDeleteListButton:SetPoint("TOPLEFT", 500, -210)
+    self.checklistManagerDeleteListButton:SetPoint("TOPLEFT", 500, -200)
     self.checklistManagerDeleteListButton:SetSize(100, 24)
     self.checklistManagerDeleteListButton:SetText("Delete List")
     self.checklistManagerDeleteListButton:SetScript("OnClick", function(self)
@@ -1970,7 +1978,7 @@ function ListTracker:HideChecklistFrame()
     self.checklistFrame:Hide()
 end
 
--- Called when chat command is executed to hide the checklist frame
+-- Called when chat command is executed to show the checklist frame
 function ListTracker:ShowChecklistFrame()
     self.db.profile.framePosition.hidden = false
     self.checklistFrame:Show()
