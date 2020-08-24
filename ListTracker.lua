@@ -210,7 +210,7 @@ function ListTracker:HandleChatMessageCommands(msg)
     elseif command == "profiles" then
         InterfaceOptionsFrame_OpenToCategory(self.checklistProfilesFrame)
         InterfaceOptionsFrame_OpenToCategory(self.checklistProfilesFrame)
-    
+
     elseif command == "r" then
         ListTracker:ReloadUiDialog()
 
@@ -247,7 +247,7 @@ function ListTracker:OnEnable()
     ObjectiveTrackerFrame.Show = self.ObjectiveTrackerFrameShow
 
     -- Notify user that ListTracker is enabled, give config command
-    self:Print("List Tracker v", ltVersion .. "", " enabled.")
+    self:Print("List Tracker: ", ltVersion .. "", " enabled.")
 
     self:CheckCurrentDateAndTime(true)
 
@@ -262,7 +262,9 @@ function ListTracker:OnEnable()
     -- Create checklist frame
     self:CreateChecklistFrame()
 
-    -- TODO Research this ->  ObjectiveTrackerFrame.Show=function() end
+    -- TODO Research this ->  
+    ObjectiveTrackerFrame.Show = function()
+    end
 end
 
 -- Called when timer interval changes
@@ -362,7 +364,7 @@ end
 
 -- Create the main checklist frame 
 function ListTracker:CreateChecklistFrame()
-    self.checklistFrame = CreateFrame("Frame", "ChecklistFrame", UIParent)
+    self.checklistFrame = CreateFrame("Frame", "ChecklistFrame", UIParent, BackdropTemplateMixin and "BackdropTemplate")
     self.checklistFrame:SetMovable(true)
     self.checklistFrame:EnableMouse(true)
     self.checklistFrame:SetClampedToScreen(true)
@@ -378,10 +380,6 @@ function ListTracker:CreateChecklistFrame()
             .profile.framePosition.y = frame:GetPoint()
     end)
 
-    -- 9.0 Update to Backdrop
-    if not self.checklistFrame.SetBackdropColor then
-        Mixin(self.checklistFrame, BackdropTemplateMixin)
-    end
     self.checklistFrame:SetBackdropColor(0, 0, 0, 1)
     self.checklistFrame:SetScale(self.db.profile.setScale)
     self.checklistFrame:SetHeight(200)
@@ -1076,7 +1074,7 @@ function ListTracker:CreateManagerFrame()
                                         nil, ListTracker.db.profile.framePosition.anchor,
                                         ListTracker.db.profile.framePosition.x,
                                         ListTracker.db.profile.framePosition.y - 16)
-                                        ListTracker:ReloadUiDialog()
+                                    ListTracker:ReloadUiDialog()
 
                                 end
                             },
@@ -1102,6 +1100,7 @@ function ListTracker:CreateManagerFrame()
     self.checklistOptionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("ListTracker: Options", "Options",
                                      "ListTracker")
 
+    -- Add entry creation form to Manager frame
     local checklistManagerListLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     checklistManagerListLabel:SetPoint("TOPLEFT", 10, -10)
     checklistManagerListLabel:SetPoint("TOPRIGHT", 0, -10)
@@ -1117,12 +1116,11 @@ function ListTracker:CreateManagerFrame()
     checklistManagerListTextFieldLabel:SetHeight(18)
     checklistManagerListTextFieldLabel:SetText("Create a new list category")
 
-    -- Add entry creation form to options frame
     self.checklistManagerListTextField = CreateFrame("EditBox", "ChecklistManagerListTextField",
                                              self.checklistManagerFrame, "InputBoxTemplate")
-    self.checklistManagerListTextField:SetSize(450, 28)
+    self.checklistManagerListTextField:SetSize(200, 28)
     self.checklistManagerListTextField:SetPoint("TOPLEFT", 20, -44)
-    self.checklistManagerListTextField:SetMaxLetters(255)
+    self.checklistManagerListTextField:SetMaxLetters(30)
     self.checklistManagerListTextField:SetMultiLine(false)
     self.checklistManagerListTextField:SetAutoFocus(false)
     self.checklistManagerListTextField:SetScript("OnEnterPressed", function(self)
@@ -1152,14 +1150,14 @@ function ListTracker:CreateManagerFrame()
     checklistManagerTextFieldLabel:SetPoint("TOPRIGHT", 0, -95)
     checklistManagerTextFieldLabel:SetJustifyH("LEFT")
     checklistManagerTextFieldLabel:SetHeight(18)
-    checklistManagerTextFieldLabel:SetText("Create a new list item and add it to the currently selected list category")
+    checklistManagerTextFieldLabel:SetText("Create a new item and add to selected category")
 
     -- Add entry creation form to options frame
     self.checklistManagerTextField = CreateFrame("EditBox", "ChecklistManagerTextField", self.checklistManagerFrame,
                                          "InputBoxTemplate")
-    self.checklistManagerTextField:SetSize(355, 28)
+    self.checklistManagerTextField:SetSize(200, 28)
     self.checklistManagerTextField:SetPoint("TOPLEFT", 20, -109)
-    self.checklistManagerTextField:SetMaxLetters(255)
+    self.checklistManagerTextField:SetMaxLetters(30)
     self.checklistManagerTextField:SetMultiLine(false)
     self.checklistManagerTextField:SetAutoFocus(false)
     self.checklistManagerTextField:SetScript("OnEnterPressed", function(self)
@@ -1168,7 +1166,7 @@ function ListTracker:CreateManagerFrame()
 
     local checklistManagerWeeklyLabel = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY",
                                             "GameTooltipTextSmall")
-    checklistManagerWeeklyLabel:SetPoint("TOPLEFT", 400, -95)
+    checklistManagerWeeklyLabel:SetPoint("TOPLEFT", 270, -95)
     checklistManagerWeeklyLabel:SetPoint("TOPRIGHT", 0, -95)
     checklistManagerWeeklyLabel:SetJustifyH("LEFT")
     checklistManagerWeeklyLabel:SetHeight(18)
@@ -1176,7 +1174,7 @@ function ListTracker:CreateManagerFrame()
 
     self.checklistManagerWeeklyCheckbox = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                               "UICheckButtonTemplate")
-    self.checklistManagerWeeklyCheckbox:SetPoint("TOPLEFT", 400, -110)
+    self.checklistManagerWeeklyCheckbox:SetPoint("TOPLEFT", 270, -110)
     self.checklistManagerWeeklyCheckbox:SetWidth(25)
     self.checklistManagerWeeklyCheckbox:SetHeight(25)
     self.checklistManagerWeeklyCheckbox:SetScript("OnClick", function(frame)
@@ -1184,13 +1182,13 @@ function ListTracker:CreateManagerFrame()
     end)
 
     local checklistManagerWeeklyText = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-    checklistManagerWeeklyText:SetPoint("TOPLEFT", 425, -115)
+    checklistManagerWeeklyText:SetPoint("TOPLEFT", 300, -115)
     checklistManagerWeeklyText:SetHeight(18)
     checklistManagerWeeklyText:SetText("Weekly")
 
     self.checklistManagerManualCheckbox = CreateFrame("CheckButton", nil, self.checklistManagerFrame,
                                               "UICheckButtonTemplate")
-    self.checklistManagerManualCheckbox:SetPoint("TOPLEFT", 500, -110)
+    self.checklistManagerManualCheckbox:SetPoint("TOPLEFT", 350, -110)
     self.checklistManagerManualCheckbox:SetWidth(25)
     self.checklistManagerManualCheckbox:SetHeight(25)
     self.checklistManagerManualCheckbox:SetScript("OnClick", function(frame)
@@ -1198,7 +1196,7 @@ function ListTracker:CreateManagerFrame()
     end)
 
     local checklistManagerManualText = self.checklistManagerFrame:CreateFontString(nil, "OVERLAY", "ChatFontNormal")
-    checklistManagerManualText:SetPoint("TOPLEFT", 525, -115)
+    checklistManagerManualText:SetPoint("TOPLEFT", 380, -115)
     checklistManagerManualText:SetHeight(18)
     checklistManagerManualText:SetText("Manual")
 
@@ -1978,11 +1976,6 @@ function ListTracker:ShowChecklistFrame()
     self.checklistFrame:Show()
 end
 
-function ListTracker:UpdateVisibilityForIcon(hidden)
-    -- TODO
-    self.icon:Refresh("ListTrackerDO", hidden)
-end
-
 function ListTracker.ObjectiveTrackerFrameShow(...)
     if ListTracker.db.profile.hideObjectives then
         ListTracker:UpdateVisibilityForChecklistFrame()
@@ -2088,8 +2081,4 @@ function ListTracker:UpdateVisibilityOnChecklistFrame(hidden)
     for listId, _ in pairs(self.db.profile.lists) do
         self:UpdateVisibilityForListOnChecklistFrame(listId, hidden)
     end
-end
-
-function ListTracker:UpdateScale(value)
-    self.checklistFrame:SetScale(value)
 end

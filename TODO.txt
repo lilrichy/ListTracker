@@ -1,11 +1,10 @@
-Mini map Icon Visibility option:
+Mini map Icon:
     - Lock location 
-    - Missing Function - investigate...
-    - Add ask to reload dialog when check box changes or chat command used / find way to hide or show icon with out reloading - other addons can do this
 
 Appearance Changes: 
     Add backdrop shadow / alpha option slider
     Percentage compleat % for catagories
+    Change delete icon to UI Close Button
 
 Features to add:
     Click on text to check the box in checkList Frame

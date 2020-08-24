@@ -15,3 +15,5 @@ function ListTracker:ReloadUiDialog()
 
     StaticPopup_Show ("List Tracker Reload UI");
 end
+
+--TODO Create NEWS Dialog
