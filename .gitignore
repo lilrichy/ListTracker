@@ -6,6 +6,7 @@ Publish.txt
 Profiles.lua
 Manager.lua
 Options.lua
+workspace.code-workspace
 
 BlizzardInterfaceCode
 
@@ -30,3 +31,4 @@ libs/Ace3.toc
 libs/Bindings.xml
 libs/changelog.txt
 libs/LICENSE.txt
+libs/CHANGES.txt

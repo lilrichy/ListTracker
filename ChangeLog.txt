@@ -1,4 +1,5 @@
-8/24/2020 - 1.1.7
+8/24/2020 - 1.1.9
+   Fixed a chat command bug.
    Added limits to text boxes to prevent crazy long list lengths.
    Relocated some manager widgets.
    Reworded a few options.

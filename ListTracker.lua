@@ -215,7 +215,7 @@ function ListTracker:HandleChatMessageCommands(msg)
     elseif command == "r" then
         ListTracker:ReloadUiDialog()
 
-    elseif command == "about" or "info" or "news" then
+    --elseif command == "about" or "info" or "news" then
         -- TODO info screen - shown when updated or when this command
 
     elseif command == "help" then
