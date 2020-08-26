@@ -123,6 +123,8 @@ ListTracker.defaults = {
         weeklyResetDay = 3,
         resetPollInterval = 5,
         setScale = 1,
+        showLogin = false,
+        showReset = false,
         lists = {
             [1] = {
                 name = "Default",
@@ -215,7 +217,7 @@ function ListTracker:HandleChatMessageCommands(msg)
     elseif command == "r" then
         ListTracker:ReloadUiDialog()
 
-    --elseif command == "about" or "info" or "news" then
+        -- elseif command == "about" or "info" or "news" then
         -- TODO info screen - shown when updated or when this command
 
     elseif command == "help" then
@@ -265,6 +267,11 @@ function ListTracker:OnEnable()
 
     -- TODO Research this ->  
     ObjectiveTrackerFrame.Show = function()
+    end
+
+    -- Check if checklist should show at login
+    if ListTracker.db.profile.showLogin and ListTracker.db.profile.framePosition.hidden then
+        ListTracker:ShowChecklistFrame()
     end
 end
 
@@ -346,6 +353,11 @@ function ListTracker:CheckCurrentDateAndTime(firstTime)
         end
         -- Update timestamp to future, we already updated today
         self.db.profile.timestamp = resetTime
+
+        -- Check if list should be set to show for reset
+        if self.db.profile.showReset and self.db.profile.framePosition.hidden then
+            ListTracker:ShowChecklistFrame()
+        end
     end
 
     -- Check if entries should be removed or added due to day change
@@ -1025,6 +1037,24 @@ function ListTracker:CreateManagerFrame()
                                 set = function(info, value)
                                     ListTracker.db.profile.setScale = value
                                     ListTracker:UpdateScale(value)
+                                end
+                            },
+                            showLogin = {
+                                type = "toggle",
+                                name = "Show on login",
+                                order = 60,
+                                get = getOpt,
+                                set = function(info, value)
+                                    ListTracker.db.profile.showLogin = value
+                                end
+                            },
+                            showReset = {
+                                type = "toggle",
+                                name = "Show on Reset",
+                                order = 70,
+                                get = getOpt,
+                                set = function(info, value)
+                                    ListTracker.db.profile.showReset = value
                                 end
                             }
                         }
