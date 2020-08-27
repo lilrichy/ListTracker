@@ -1,3 +1,6 @@
+8/26/2020 - 1.1.10
+   Added option to show at Login and on Reset
+
 8/24/2020 - 1.1.9
    Fixed a chat command bug.
    Added limits to text boxes to prevent crazy long list lengths.

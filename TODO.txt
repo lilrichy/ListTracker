@@ -1,10 +1,10 @@
 Mini map Icon:
-    - Lock location 
+    - Lock location - Need to research LibDBIcon position, may not be possible 
 
 Appearance Changes: 
-    Add backdrop shadow / alpha option slider
+    Add backdrop shadow / alpha option slider - might need to create its own frame cus alignment is off
     Percentage compleat % for catagories
-    Change delete icon to UI Close Button
+    Change delete icon to UI Close Button - don't need to change...
 
 Features to add:
     Click on text to check the box in checkList Frame
@@ -18,10 +18,7 @@ Features to add:
 Bugs or Updates:
     Remove Objective Links
     Scroll bar not working?
-    LibDataBroker added
-    LibDBIcon added
-    Libs need to be updated to remove Ace3 folder
-
+    
 News Screen:
     Shown at login on update
     Shown with chat command

@@ -43,6 +43,12 @@ ListTracker = LibStub("AceAddon-3.0"):NewAddon("ListTracker", "AceConsole-3.0", 
 -- Addon Version
 local ltVersion = "@project-version@"
 
+-- @do-not-package@
+if ltVersion == "@project-version@" then
+    ltVersion = "0.0.2"
+end
+--   @end-do-not-package@
+
 -- Create empty table for localization data
 ListTracker.localize = {}
 ListTracker.data = {}
@@ -105,6 +111,7 @@ ListTracker.icon = LibStub("LibDBIcon-1.0")
 ListTracker.defaults = {
     profile = {
         version = ltVersion,
+        previousVersion = "0",
         icon = {
             hide = false
         },
@@ -249,8 +256,28 @@ function ListTracker:OnEnable()
     self.ShowObjectivesWindow = ObjectiveTrackerFrame.Show
     ObjectiveTrackerFrame.Show = self.ObjectiveTrackerFrameShow
 
-    -- Notify user that ListTracker is enabled, give config command
-    self:Print("List Tracker: ", ltVersion .. "", " enabled.")
+    -- Check first run / New Update
+    -- First run = Show New Install Dialog
+    if ListTracker.db.profile.previousVersion == "0" then
+        -- TODO Show first run Dialog
+        self:Print("List Tracker: ", ltVersion .. "", " enabled.")
+        self:Print("Thank you for installing List Tracker!!!")
+        self:Print("To start out type /lt manager or right click on the minimap icon to make a new list.")
+        ListTracker.db.profile.previousVersion = ltVersion
+
+        -- Upgraded = Show News Dialog
+    elseif ListTracker.db.profile.previousVersion < ltVersion then
+        -- TODO Show update Dialog
+        self:Print("List Tracker: ", ltVersion .. "", " enabled.")
+        self:Print("List Tracker: Has been updated from: ", ListTracker.db.profile.previousVersion .. "", "To: ",
+            ltVersion)
+        ListTracker.db.profile.previousVersion = ltVersion
+
+    else
+        -- Same Version = show no dialog 
+        -- Notify user that ListTracker is enabled, give config command
+        self:Print("List Tracker: ", ltVersion .. "", " enabled.")
+    end
 
     self:CheckCurrentDateAndTime(true)
 
