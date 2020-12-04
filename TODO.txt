@@ -7,6 +7,7 @@ Appearance Changes:
     Change delete icon to UI Close Button - don't need to change...
 
 Features to add:
+    Option to disable category checkbox.
     Click on text to check the box in checkList Frame
     Right click option on text
         Menu
@@ -16,7 +17,6 @@ Features to add:
     Ability to edit Lists and List items in manager window
 
 Bugs or Updates:
-    Remove Objective Links
     Scroll bar not working?
     
 News Screen:

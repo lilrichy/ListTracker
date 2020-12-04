@@ -87,7 +87,7 @@ ListTracker.timerId = nil
 ListTracker.currentDay = nil
 ListTracker.selectedManagerFrameText = nil
 ListTracker.selectedManagerFrameList = nil
-ListTracker.ShowObjectivesWindow = nil
+--ListTracker.ShowObjectivesWindow = nil
 
 -- Create minimap icon
 ListTracker.ListTrackerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("ListTrackerDO", {
@@ -291,8 +291,8 @@ function ListTracker:OnEnable()
     self:CreateChecklistFrame()
 
     -- TODO Research this ->  
-    ObjectiveTrackerFrame.Show = function()
-    end
+    --ObjectiveTrackerFrame.Show = function()
+    --end
 
     -- Check if checklist should show at login
     if ListTracker.db.profile.showLogin and ListTracker.db.profile.framePosition.hidden then
@@ -2039,13 +2039,14 @@ function ListTracker:ShowChecklistFrame()
     self.checklistFrame:Show()
 end
 
-function ListTracker.ObjectiveTrackerFrameShow(...)
+-- Disabling due to bug with other addons
+--[[ function ListTracker.ObjectiveTrackerFrameShow(...)
     if ListTracker.db.profile.hideObjectives then
         ListTracker:UpdateVisibilityForChecklistFrame()
     else
         ListTracker.ShowObjectivesWindow(ObjectiveTrackerFrame)
     end
-end
+end]]
 
 function ListTracker:UpdateVisibilityForChecklistFrame()
     if self.db.profile.framePosition.hidden then
@@ -2053,14 +2054,15 @@ function ListTracker:UpdateVisibilityForChecklistFrame()
     else
         self.checklistFrame:Show()
     end
-    if self.db.profile.hideObjectives then
+    -- Disabling due to bug with other addons
+    --[[ if self.db.profile.hideObjectives then
         if self.db.profile.framePosition.hidden then
             ListTracker.ShowObjectivesWindow(ObjectiveTrackerFrame)
         else
             ObjectiveTrackerFrame:Hide()
         end
-    end
-end
+    end ]]
+end 
 
 function ListTracker:UpdateVisibilityForEntryOnChecklistFrame(listId, entryId, hidden)
     local entry = self.db.profile.lists[listId].entries[entryId]
