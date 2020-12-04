@@ -4,10 +4,8 @@ Mini map Icon:
 Appearance Changes: 
     Add backdrop shadow / alpha option slider - might need to create its own frame cus alignment is off
     Percentage compleat % for catagories
-    Change delete icon to UI Close Button - don't need to change...
 
 Features to add:
-    Option to disable category checkbox.
     Click on text to check the box in checkList Frame
     Right click option on text
         Menu
