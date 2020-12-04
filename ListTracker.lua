@@ -43,9 +43,9 @@ ListTracker = LibStub("AceAddon-3.0"):NewAddon("ListTracker", "AceConsole-3.0", 
 -- Addon Version
 local ltVersion = "@project-version@"
 
---if ltVersion == "@project-version@" then
+-- if ltVersion == "@project-version@" then
 --    ltVersion = "0.0.2"
---end
+-- end
 
 -- Create empty table for localization data
 ListTracker.localize = {}
@@ -87,7 +87,7 @@ ListTracker.timerId = nil
 ListTracker.currentDay = nil
 ListTracker.selectedManagerFrameText = nil
 ListTracker.selectedManagerFrameList = nil
---ListTracker.ShowObjectivesWindow = nil
+-- ListTracker.ShowObjectivesWindow = nil
 
 -- Create minimap icon
 ListTracker.ListTrackerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("ListTrackerDO", {
@@ -129,14 +129,15 @@ ListTracker.defaults = {
         resetPollInterval = 5,
         setScale = 1,
         showLogin = false,
-        showReset = false,
+        showReset = false,        
+        enableHeaderCheckboxs = true,
         lists = {
             [1] = {
                 name = "Default",
                 expanded = true,
                 entries = {}
             }
-        }
+        },
     }
 }
 
@@ -291,8 +292,8 @@ function ListTracker:OnEnable()
     self:CreateChecklistFrame()
 
     -- TODO Research this ->  
-    --ObjectiveTrackerFrame.Show = function()
-    --end
+    -- ObjectiveTrackerFrame.Show = function()
+    -- end
 
     -- Check if checklist should show at login
     if ListTracker.db.profile.showLogin and ListTracker.db.profile.framePosition.hidden then
@@ -506,9 +507,13 @@ function ListTracker:CreateChecklistFrameElements()
                     self.checklistFrame.lists[listId].checkbox:SetWidth(16)
                     self.checklistFrame.lists[listId].checkbox:SetHeight(16)
                     self.checklistFrame.lists[listId].checkbox:SetChecked(false)
-                    self.checklistFrame.lists[listId].checkbox:SetScript("OnClick", function(self)
-                        ListTracker:ToggleChecklistFrameListCheckbox(self)
-                    end)
+                    if self.db.profile.enableHeaderCheckboxs then
+                        self.checklistFrame.lists[listId].checkbox:SetScript("OnClick", function(self)
+                            ListTracker:ToggleChecklistFrameListCheckbox(self)
+                        end)
+                    else
+                        self.checklistFrame.lists[listId].checkbox:SetMouseClickEnabled(false)
+                    end
                 end
 
                 -- Change checkbox properties to match the new list
@@ -649,9 +654,13 @@ function ListTracker:CreateListOnChecklistFrame(listId, offset)
         self.checklistFrame.lists[listId].checkbox:SetWidth(16)
         self.checklistFrame.lists[listId].checkbox:SetHeight(16)
         self.checklistFrame.lists[listId].checkbox:SetChecked(false)
-        self.checklistFrame.lists[listId].checkbox:SetScript("OnClick", function(self)
-            ListTracker:ToggleChecklistFrameListCheckbox(self)
-        end)
+        if self.db.profile.enableHeaderCheckboxs then
+            self.checklistFrame.lists[listId].checkbox:SetScript("OnClick", function(self)
+                ListTracker:ToggleChecklistFrameListCheckbox(self)
+            end)
+        else
+            self.checklistFrame.lists[listId].checkbox:SetMouseClickEnabled(false)
+        end
     end
 
     -- Change checkbox properties to match the new list
@@ -1080,6 +1089,16 @@ function ListTracker:CreateManagerFrame()
                                 get = getOpt,
                                 set = function(info, value)
                                     ListTracker.db.profile.showReset = value
+                                end
+                            },
+                            enableHeaderCheckboxs = {
+                                type = "toggle",
+                                name = "Category Checkboxes",
+                                order = 80,
+                                get = getOpt,
+                                set = function(info, value)
+                                    ListTracker.db.profile.enableHeaderCheckboxs = value
+                                    ListTracker:ReloadUiDialog()
                                 end
                             }
                         }
@@ -2062,7 +2081,7 @@ function ListTracker:UpdateVisibilityForChecklistFrame()
             ObjectiveTrackerFrame:Hide()
         end
     end ]]
-end 
+end
 
 function ListTracker:UpdateVisibilityForEntryOnChecklistFrame(listId, entryId, hidden)
     local entry = self.db.profile.lists[listId].entries[entryId]

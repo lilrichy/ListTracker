@@ -1,5 +1,9 @@
+12/4/2020 - 1.1.12
+   Updated toc to current patch.
+   Added option to disable the category checkboxes.
+
 12/4/2020 - 1.1.11
-Fixed a bug that would cause other addons to not show Objectives properly.
+   Fixed a bug that would cause other addons to not show Objectives properly.
 
 8/26/2020 - 1.1.10
    Added option to show at Login and on Reset.
