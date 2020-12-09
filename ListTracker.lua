@@ -129,7 +129,7 @@ ListTracker.defaults = {
         resetPollInterval = 5,
         setScale = 1,
         showLogin = false,
-        showReset = false,        
+        showReset = false,
         enableHeaderCheckboxs = true,
         lists = {
             [1] = {
@@ -137,7 +137,7 @@ ListTracker.defaults = {
                 expanded = true,
                 entries = {}
             }
-        },
+        }
     }
 }
 
@@ -223,6 +223,9 @@ function ListTracker:HandleChatMessageCommands(msg)
     elseif command == "r" then
         ListTracker:ReloadUiDialog()
 
+    elseif command == "reset" then
+        self:Print("List Tracker: Lists are Reset")
+        ListTracker:ResetLists()
         -- elseif command == "about" or "info" or "news" then
         -- TODO info screen - shown when updated or when this command
 
@@ -242,7 +245,8 @@ function ListTracker:HandleChatMessageCommands(msg)
         self:Print("\"/lt options\" : opens options dialog")
         self:Print("\"/lt profiles\" : opens profiles dialog")
         self:Print("\"/lt manager\" : opens list manager dialog")
-        self:Print("\"/lt about\": shows the news screen - COMING SOON!")
+        self:Print("\"/lt reset\" : Resets lists to unchecked state.")
+        -- self:Print("\"/lt about\": shows the news screen - COMING SOON!")
     else
         self:Print("Usage: \"/lt <command>\"")
         self:Print("Type: \"/lt help\" for a list of commands")

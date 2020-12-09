@@ -1,3 +1,6 @@
+12/09/2020 - 1.1.13
+   Added List reset Chat option - "/lt reset" will reset all checkboxes except manual entries.
+
 12/4/2020 - 1.1.12
    Updated toc to current patch.
    Added option to disable the category checkboxes.
