@@ -1197,7 +1197,8 @@ function ListTracker:CreateManagerFrame()
                                              self.checklistManagerFrame, "InputBoxTemplate")
     self.checklistManagerListTextField:SetSize(200, 28)
     self.checklistManagerListTextField:SetPoint("TOPLEFT", 20, -44)
-    self.checklistManagerListTextField:SetMaxLetters(30)
+    -- Remove Max Letters
+    -- self.checklistManagerListTextField:SetMaxLetters(30)
     self.checklistManagerListTextField:SetMultiLine(false)
     self.checklistManagerListTextField:SetAutoFocus(false)
     self.checklistManagerListTextField:SetScript("OnEnterPressed", function(self)
@@ -1237,7 +1238,8 @@ function ListTracker:CreateManagerFrame()
                                          "InputBoxTemplate")
     self.checklistManagerTextField:SetSize(200, 28)
     self.checklistManagerTextField:SetPoint("TOPLEFT", 20, -129)
-    self.checklistManagerTextField:SetMaxLetters(30)
+    -- Remove Max Letters
+    -- self.checklistManagerTextField:SetMaxLetters(30)
     self.checklistManagerTextField:SetMultiLine(false)
     self.checklistManagerTextField:SetAutoFocus(false)
     self.checklistManagerTextField:SetScript("OnEnterPressed", function(self)
@@ -1480,6 +1482,11 @@ function ListTracker:CreateManagerFrame()
         self.checklistManagerFrameClickable[i]:SetScript("OnMouseUp", function(self)
             if self.inside then
                 if ListTracker.checklistManagerFrameText[i]:IsShown() then
+                    -- Updated to Edit Text entries
+                    local text = ListTracker.checklistManagerFrameText[i]:GetText()
+                    ListTracker.checklistManagerTextField:SetText(string.sub(text, 11))
+                    --
+
                     ListTracker.checklistManagerFrameText[i]:SetText(
                         ListTracker.selectedEntryColor .. ListTracker.checklistManagerFrameText[i]:GetText())
                     ListTracker:ResetSelectedManagerFrameText()

@@ -16,6 +16,7 @@ Features to add:
 
 Bugs or Updates:
     Scroll bar not working?
+    Weekly day check not working if logged in past day.
     
 News Screen:
     Shown at login on update

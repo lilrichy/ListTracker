@@ -1,3 +1,9 @@
+12/20/2020 - 1.1.14
+   Removed Character limit on text boxes.
+   Added a way to edit entries by clicking on the text in the editor. 1 click turns text yellow, 2nd click puts text into edit box.
+      - Still have to delete old one but at least you don't have to retype everything any more.
+      - I will eventually try to make a better way to do this but this should work for now.
+
 12/09/2020 - 1.1.13
    Added List reset Chat option - "/lt reset" will reset all checkboxes except manual entries.
 
